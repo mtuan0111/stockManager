@@ -1,0 +1,15 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+table {
+  width: 100%;
+}
+
+#containerHistoricalQuotes, #containerIntradayQuotes {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/*# sourceMappingURL=main.css.map */
