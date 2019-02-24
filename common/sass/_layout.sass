@@ -1,11 +1,18 @@
-.container
-    max-width: 1000px
+.wrapper
+    // max-width: 1000px
     margin: 0 auto
-
-table
-    width: 100%
-
-#containerHistoricalQuotes, #containerIntradayQuotes
+    display: grid
+    grid-template-columns: 10%  auto auto
+    grid-template-rows: 50% 50%
+    gap: 2%
     height: 100vh
-    // max-width: 
-    overflow-y: auto
+    // grid-template-rows: 25% 100px auto
+    > *
+        // grid-column-start: 1
+        // grid-column-end: 5
+        // grid-row-start: row1-start
+        // grid-row-end: 3
+        // display: flex
+        overflow: auto
+
+    // #leftMenu

@@ -1,0 +1,48 @@
+::-webkit-scrollbar
+    width: 4px
+
+/* Track */
+::-webkit-scrollbar-track
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3)*/
+    width: 10px
+    /*display:none*/
+    background: transparent
+
+/* Handle */
+::-webkit-scrollbar-thumb
+    // -webkit-border-radius: 10px
+    // border-radius: 10px
+    background-color: black
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5)*/
+::-webkit-scrollbar-thumb:window-inactive
+    /*background: rgba(255,0,0,0.4)*/
+    
+table
+    width: 100%
+    counter-reset: section
+    thead
+
+        &:hover
+            background-color: $grey
+        tr
+            &:before
+                content: ""
+
+            th
+                /*Sticky position*/
+                position: -webkit-sticky
+                position: sticky
+                top:0
+                text-align: center
+                background: white
+
+    tbody   
+        tr
+            &:first-child
+                *
+                    // font-weight: bold
+                    color: red
+            &:before
+                counter-increment: section
+                content: counter(section)
+                font-size: 80%

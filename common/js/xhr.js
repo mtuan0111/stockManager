@@ -39,7 +39,6 @@ function makeCorsRequest(url = "", callback) {
         // alert("Response from CORS request");
 
         data = JSON.parse(textReturned);
-        // data = data.reverse();
         callback(data);
     };
 

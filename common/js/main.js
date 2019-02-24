@@ -6,8 +6,6 @@ jsFilesImport.forEach(file => {
     document.head.appendChild(imported);
 });
 
-setTimeout(function() {
-    VCB = new stockInfo("VCB");
-}, 10);
-// HAG.loadIntradayQuotes();
-// HNG = new stockInfo("HNG");
+$(document).ready(function() {
+    var behavior = new userBehavior();
+});

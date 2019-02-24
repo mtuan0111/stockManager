@@ -1,15 +1,62 @@
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3)*/
+  width: 10px;
+  /*display:none*/
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: black;
+  /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5)*/
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  /*background: rgba(255,0,0,0.4)*/
 }
 
 table {
   width: 100%;
+  counter-reset: section;
+}
+table thead:hover {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+table thead tr:before {
+  content: "";
+}
+table thead tr th {
+  /*Sticky position*/
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  text-align: center;
+  background: white;
+}
+table tbody tr:first-child * {
+  color: red;
+}
+table tbody tr:before {
+  counter-increment: section;
+  content: counter(section);
+  font-size: 80%;
 }
 
-#containerHistoricalQuotes, #containerIntradayQuotes {
+.wrapper {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 10% auto auto;
+  grid-template-rows: 50% 50%;
+  gap: 2%;
   height: 100vh;
-  overflow-y: auto;
+}
+.wrapper > * {
+  overflow: auto;
 }
 
 /*# sourceMappingURL=main.css.map */

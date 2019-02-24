@@ -1,21 +1,42 @@
-function behavior() {
-    this.getMainNavItems();
-    console.log("this.getMainNavItems: ", this.getMainNavItems);
+class userBehavior {
+    constructor() {
+        var _this = this;
+        _this.createSearchEvent();
+        setTimeout(function() {
+            new stockInfo("ACB");
+        }, 100);
+    }
+
+    createSearchEvent() {
+        var _this = this;
+
+        $(document).on("click", "#btnSearch", function() {
+            var inputStockCode = document.getElementsByName("stockCode")[0]
+                .value;
+            console.log("inputStockCode: ", inputStockCode);
+            new stockInfo(inputStockCode);
+        });
+    }
 }
 
-behavior.prototype.getMainNavItems = function() {
-    _this = this;
-    leftFrame1 = document.getElementsByName("leftFrame1");
+// function behavior() {
+//     this.getMainNavItems();
+//     console.log("this.getMainNavItems: ", this.getMainNavItems);
+// }
 
-    this.getMainNavItems = _this.iframeRef(leftFrame1[0]);
-    // this.getMainNavItems = this.getMainNavItems.getElementsByTagName("tr");
-    // _this.getMainNavItems = document.get;
-};
+// behavior.prototype.getMainNavItems = function() {
+//     _this = this;
+//     leftFrame1 = document.getElementsByName("leftFrame1");
 
-behavior.prototype.iframeRef = function(frameRef) {
-    return frameRef.contentWindow
-        ? frameRef.contentWindow.document
-        : frameRef.contentDocument;
-};
+//     this.getMainNavItems = _this.iframeRef(leftFrame1[0]);
+//     // this.getMainNavItems = this.getMainNavItems.getElementsByTagName("tr");
+//     // _this.getMainNavItems = document.get;
+// };
 
-testBehavior = new behavior();
+// behavior.prototype.iframeRef = function(frameRef) {
+//     return frameRef.contentWindow
+//         ? frameRef.contentWindow.document
+//         : frameRef.contentDocument;
+// };
+
+// testBehavior = new behavior();
