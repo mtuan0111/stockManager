@@ -39,7 +39,11 @@ function makeCorsRequest(url = "", callback) {
         // alert("Response from CORS request");
 
         data = JSON.parse(textReturned);
-        callback(data);
+        if (data.length) callback(data);
+        else {
+            window.alertError = alert("Please input the valid stock Code");
+            return;
+        }
     };
 
     xhr.onerror = function() {

@@ -10,3 +10,11 @@ function convertDateString(date = new Date()) {
         date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     return stringRS;
 }
+
+function getCol(matrix, col) {
+    var column = [];
+    for (var i = 0; i < matrix.length; i++) {
+        column.push(matrix[i][col]);
+    }
+    return column;
+}

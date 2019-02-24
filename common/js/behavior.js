@@ -4,7 +4,7 @@ class userBehavior {
         _this.createSearchEvent();
         setTimeout(function() {
             new stockInfo("ACB");
-        }, 100);
+        }, 500);
     }
 
     createSearchEvent() {
@@ -13,7 +13,7 @@ class userBehavior {
         $(document).on("click", "#btnSearch", function() {
             var inputStockCode = document.getElementsByName("stockCode")[0]
                 .value;
-            console.log("inputStockCode: ", inputStockCode);
+            // console.log("inputStockCode: ", inputStockCode);
             new stockInfo(inputStockCode);
         });
     }

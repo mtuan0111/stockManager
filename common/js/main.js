@@ -1,4 +1,9 @@
-jsFilesImport = ["extention.js", "xhr.js", "getStockInfo.js"];
+jsFilesImport = [
+    "extention.js",
+    "xhr.js",
+    "getStockInfo.js",
+    "chartDrawing.js"
+];
 
 jsFilesImport.forEach(file => {
     var imported = document.createElement("script");

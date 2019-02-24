@@ -7,14 +7,31 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', type='text/css', media='screen', href='common/css/main.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+
   body
     .wrapper
-      #leftMenu.center
-        input.center(type="text" name="stockCode")
-        a.waves-effect.waves-light.btn#btnSearch Search
+      .sidebar.section.center
+        .input-field.center-align
+          input#stockCode.validate.center-align(type='text' name="stockCode")
+          label(for='stockCode') StockCode
+        //- input.center(type="text" name="stockCode")
+        
+        
+        //- button.btn.waves-effect.waves-lightbtnSearch(type='submit', name='action')
+        //-   | Search
+        //-   i.material-icons.right search
+        a.waves-effect.waves-light.btn#btnSearch.col.s12
+          | Search
+          i.material-icons.right search
       #containerIntradayQuotes
       #containerHistoricalQuotes
-    script(src='https://code.jquery.com/jquery-3.3.1.slim.js', integrity='sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=', crossorigin='anonymous')
+
+      canvas#IntradayChart
+      canvas#HistoricalChart
+
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js' crossorigin='anonymous')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js')
 
     script(src='common/js/behavior.js')

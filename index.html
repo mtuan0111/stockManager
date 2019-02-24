@@ -7,16 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="common/css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
     <div class="wrapper">
-      <div class="center" id="leftMenu">
-        <input class="center" type="text" name="stockCode"><a class="waves-effect waves-light btn" id="btnSearch">Search</a>
+      <div class="sidebar section center">
+        <div class="input-field center-align">
+          <input class="validate center-align" id="stockCode" type="text" name="stockCode">
+          <label for="stockCode">StockCode</label>
+        </div><a class="waves-effect waves-light btn col s12" id="btnSearch">Search<i class="material-icons right">search</i></a>
       </div>
       <div id="containerIntradayQuotes"></div>
       <div id="containerHistoricalQuotes"></div>
+      <canvas id="IntradayChart"></canvas>
+      <canvas id="HistoricalChart"></canvas>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
     <script src="common/js/behavior.js"></script>
     <script src="common/js/main.js"></script>

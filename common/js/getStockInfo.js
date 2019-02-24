@@ -6,10 +6,31 @@ class stockInfo {
         _this.getHistoricalQuotes();
     }
 
+    set stockCode(stockCode) {
+        var _this = this;
+        _this._stockCode = stockCode;
+        _this.stockCodeInput = stockCode;
+    }
+
+    get stockCode() {
+        var _this = this;
+        return _this._stockCode;
+    }
+
+    set stockCodeInput(stockCode) {
+        var _this = this;
+        _this.stockCodeInput.value = stockCode;
+        _this.stockCodeInput.focus();
+    }
+
+    get stockCodeInput() {
+        var inputElement = document.getElementsByName("stockCode")[0];
+        return inputElement;
+    }
+
     getIntradayQuotes() {
         var _this = this;
         var log = "Intraday Quotes: " + _this.stockCode;
-        console.log(log);
 
         var url =
             "https://www.fireant.vn/api/Data/Markets/IntradayQuotes?symbol=" +
@@ -33,19 +54,29 @@ class stockInfo {
                 log
             );
 
+            // Append table
             var targetAppend = document.getElementById(
                 "containerIntradayQuotes"
             );
 
             targetAppend.innerHTML = "";
             targetAppend.appendChild(table);
+
+            // Append chart
+            var targetChart = document.getElementById("IntradayChart");
+
+            // targetAppend.innerHTML = "";
+            var chartData = getCol(data, "Price");
+            var chartLabel = getCol(data, "Date");
+            var chart = new ChartDrawing(targetChart, chartLabel, chartData);
+            // chart;
         });
+        return true;
     }
 
-    getHistoricalQuotes = function(beginDate = null, currentDate = new Date()) {
+    getHistoricalQuotes(beginDate = null, currentDate = new Date()) {
         var _this = this;
         var log = "Historical Quotes: " + _this.stockCode;
-        console.log(log);
 
         // _this.currentDateString = currentDate.toISOString();
         _this.currentDateString = convertDateString(currentDate);
@@ -88,7 +119,9 @@ class stockInfo {
             targetAppend.innerHTML = "";
             targetAppend.appendChild(table);
         });
-    };
+
+        return true;
+    }
 
     loadIntradayQuotes(
         data = null,
