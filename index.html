@@ -16,6 +16,38 @@
           <input class="validate center-align" id="stockCode" type="text" name="stockCode">
           <label for="stockCode">StockCode</label>
         </div><a class="waves-effect waves-light btn col s12" id="btnSearch">Search<i class="material-icons right">search</i></a>
+        <ul class="collection">
+          <li class="collection-item"><span class="badge currentIntradayPricePercent"></span>
+            <div class="input-field">
+              <input class="currentIntradayPrice center-align" type="text" placeholder="">
+              <label class="currentIntradayLabel" for="disabled">Current price</label>
+            </div>
+          </li>
+          <li class="collection-item"><span class="badge maxIntradayPricePercent"></span>
+            <div class="input-field">
+              <input class="maxIntradayPrice center-align" type="text" placeholder="">
+              <label class="maxIntradayLabel" for="disabled">Max price</label>
+            </div>
+          </li>
+          <li class="collection-item"><span class="badge minIntradayPricePercent"></span>
+            <div class="input-field">
+              <input class="minIntradayPrice center-align" type="text" placeholder="">
+              <label class="minIntradayLabel" for="disabled">Min price</label>
+            </div>
+          </li>
+          <li class="collection-item"><span class="badge openIntradayPricePercent"></span>
+            <div class="input-field">
+              <input class="openIntradayPrice center-align" type="text" placeholder="">
+              <label class="openIntradayLabel" for="disabled">Open price</label>
+            </div>
+          </li>
+          <li class="collection-item">
+            <div class="input-field">
+              <input class="referenceIntradayPrice center-align" type="text" placeholder="">
+              <label class="referenceIntradayLabel" for="disabled">Reference price</label>
+            </div>
+          </li>
+        </ul>
       </div>
       <div id="containerIntradayQuotes"></div>
       <div id="containerHistoricalQuotes"></div>

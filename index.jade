@@ -17,13 +17,54 @@ html
           label(for='stockCode') StockCode
         //- input.center(type="text" name="stockCode")
         
-        
+
+
         //- button.btn.waves-effect.waves-lightbtnSearch(type='submit', name='action')
         //-   | Search
         //-   i.material-icons.right search
         a.waves-effect.waves-light.btn#btnSearch.col.s12
           | Search
           i.material-icons.right search
+
+        ul.collection
+          li.collection-item
+            span.badge.currentIntradayPricePercent
+            .input-field
+              input.currentIntradayPrice.center-align(type='text', placeholder= "")
+              label.currentIntradayLabel(for='disabled') Current price
+              //- input.currentIntradayPricePercent.center-align(type='text', placeholder= "")
+
+
+          li.collection-item
+            //- i.material-icons.circle border_top
+            span.badge.maxIntradayPricePercent
+            .input-field
+              input.maxIntradayPrice.center-align(type='text', placeholder= "")
+              label.maxIntradayLabel(for='disabled') Max price
+              //- input.maxIntradayPricePercent.center-align(type='text', placeholder= "")
+
+
+          li.collection-item
+            //- i.material-icons.circle border_bottom
+            span.badge.minIntradayPricePercent
+            .input-field
+              input.minIntradayPrice.center-align(type='text', placeholder= "")
+              label.minIntradayLabel(for='disabled') Min price
+
+          li.collection-item
+            //- i.material-icons.circle border_bottom
+            span.badge.openIntradayPricePercent
+            .input-field
+              input.openIntradayPrice.center-align( type='text', placeholder= "")
+              label.openIntradayLabel(for='disabled') Open price
+              //- input.openIntradayPricePercent.center-align(type='text', placeholder= "")
+
+          li.collection-item
+            //- i.material-icons.circle border_bottom
+            .input-field
+              input.referenceIntradayPrice.center-align( type='text', placeholder= "")
+              label.referenceIntradayLabel(for='disabled') Reference price
+
       #containerIntradayQuotes
       #containerHistoricalQuotes
 

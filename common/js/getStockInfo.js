@@ -2,8 +2,8 @@ class stockInfo {
     constructor(stockCode = "") {
         var _this = this;
         _this.stockCode = stockCode.toUpperCase();
-        _this.getIntradayQuotes();
-        _this.getHistoricalQuotes();
+        _this.intradayQuotes;
+        _this.historicalQuotes;
     }
 
     set stockCode(stockCode) {
@@ -28,155 +28,234 @@ class stockInfo {
         return inputElement;
     }
 
-    getIntradayQuotes() {
+    set currentPrice(price) {
         var _this = this;
-        var log = "Intraday Quotes: " + _this.stockCode;
+        var inputElement = document.getElementsByClassName(
+            "currentIntradayPrice"
+        )[0];
 
-        var url =
-            "https://www.fireant.vn/api/Data/Markets/IntradayQuotes?symbol=" +
-            _this.stockCode;
+        var inputElementPercent = document.getElementsByClassName(
+            "currentIntradayPricePercent"
+        )[0];
 
-        makeCorsRequest(url, function(data) {
-            _this.currentPrice = data[data.length - 1]["Price"];
-            _this.intradayQuotes = data.reverse();
-            var filterColumn = [
-                // "ID",
-                // "Symbol",
-                "Date",
-                "Price",
-                "Volume",
-                "TotalVolume",
-                "Side"
-            ];
-            var table = _this.loadIntradayQuotes(
-                _this.intradayQuotes,
-                filterColumn,
-                log
-            );
+        _this._currentPrice = price;
+        inputElement.setAttribute("value", price.value);
+        inputElementPercent.innerText = price.increasePercent + "%";
+        inputElementPercent.setAttribute("data-value", price.increasePercent);
+    }
 
-            // Append table
-            var targetAppend = document.getElementById(
-                "containerIntradayQuotes"
-            );
+    get currentPrice() {
+        var _this = this;
+        if (typeof _this._currentPrice != "undefined") return 0;
+        return _this._currentPrice;
+    }
 
-            targetAppend.innerHTML = "";
-            targetAppend.appendChild(table);
+    set maxPrice(price) {
+        var _this = this;
+        var inputElement = document.getElementsByClassName(
+            "maxIntradayPrice"
+        )[0];
 
-            // Append chart
-            var targetChart = document.getElementById("IntradayChart");
+        var inputElementPercent = document.getElementsByClassName(
+            "maxIntradayPricePercent"
+        )[0];
 
-            // targetAppend.innerHTML = "";
-            var chartData = getCol(data, "Price");
-            var chartLabel = getCol(data, "Date");
-            var chart = new ChartDrawing(targetChart, chartLabel, chartData);
-            // chart;
-        });
+        _this._maxPrice = price;
+        inputElement.setAttribute("value", price.value);
+        inputElementPercent.innerText = price.increasePercent + "%";
+        inputElementPercent.setAttribute("data-value", price.increasePercent);
+    }
+
+    get maxPrice() {
+        var _this = this;
+        if (typeof _this._maxPrice != "undefined") return 0;
+        return _this._maxPrice;
+    }
+
+    set minPrice(price) {
+        var _this = this;
+        var inputElement = document.getElementsByClassName(
+            "minIntradayPrice"
+        )[0];
+
+        var inputElementPercent = document.getElementsByClassName(
+            "minIntradayPricePercent"
+        )[0];
+
+        _this._minPrice = price;
+        inputElement.setAttribute("value", price.value);
+        inputElementPercent.innerText = price.increasePercent + "%";
+        inputElementPercent.setAttribute("data-value", price.increasePercent);
+    }
+
+    get minPrice() {
+        var _this = this;
+        if (typeof _this._minPrice != "undefined") return 0;
+        return _this._minPrice;
+    }
+
+    set openPrice(price) {
+        var _this = this;
+        var inputElement = document.getElementsByClassName(
+            "openIntradayPrice"
+        )[0];
+
+        var inputElementPercent = document.getElementsByClassName(
+            "openIntradayPricePercent"
+        )[0];
+
+        this._openPrice = price;
+        inputElement.setAttribute("value", price.value);
+        inputElementPercent.innerText = price.increasePercent + "%";
+        inputElementPercent.setAttribute("data-value", price.increasePercent);
+    }
+
+    get openPrice() {
+        var _this = this;
+        if (typeof _this._openPrice != "undefined") return 0;
+        return _this._openPrice;
+    }
+
+    set referencePrice(price) {
+        var _this = this;
+        var inputElement = document.getElementsByClassName(
+            "referenceIntradayPrice"
+        )[0];
+
+        this._referencePrice = price;
+        inputElement.setAttribute("value", price);
+    }
+
+    get intradayQuotes() {
+        var _this = this;
+        this._intradayQuotes = new intraDay(this.stockCode);
+        this._intradayQuotes.getIntradayQuotes(function(data) {
+            _this.currentPrice = _this._intradayQuotes.latestPrice;
+            _this.maxPrice = _this._intradayQuotes.maxPrice;
+            // console.log("_this.maxPrice: ", _this.maxPrice);
+            // console.log("_this._intradayQuotes.maxPrice: ", _this._intradayQuotes.maxPrice);
+            _this.minPrice = _this._intradayQuotes.minPrice;
+            _this.openPrice = _this._intradayQuotes.firstPrice;
+            _this.referencePrice = _this._intradayQuotes.referencePrice;
+            console.log("_this.openPrice: ", _this.openPrice);
+            _this.distinctPrice = _this._intradayQuotes.arrayDistinctPrice;
+        }, 1);
+        return this._intradayQuotes;
+    }
+
+    get historicalQuotes() {
+        var _this = this;
+        this._historicalQuotes = new historicalQuotes(this.stockCode);
+        this._historicalQuotes.getHistoricalQuotes(function(table) {}, 1);
         return true;
     }
+    // getIntradayQuotes() {
+    //     var _this = this;
+    //     var log = "Intraday Quotes: " + _this.stockCode;
 
-    getHistoricalQuotes(beginDate = null, currentDate = new Date()) {
-        var _this = this;
-        var log = "Historical Quotes: " + _this.stockCode;
+    //     var url =
+    //         "https://www.fireant.vn/api/Data/Markets/IntradayQuotes?symbol=" +
+    //         _this.stockCode;
 
-        // _this.currentDateString = currentDate.toISOString();
-        _this.currentDateString = convertDateString(currentDate);
+    //     var getData = new getDataURL(url);
 
-        if (!beginDate) {
-            beginDate = currentDate;
-            beginDate.setYear(beginDate.getFullYear() - 1);
-        }
-        _this.beginDateString = convertDateString(beginDate);
+    //     getData.makeCorsRequest(function(data) {
+    //         _this.currentPrice = data[data.length - 1]["Price"];
+    //         _this.intradayQuotes = data.reverse();
+    //         var filterColumn = [
+    //             // "ID",
+    //             // "Symbol",
+    //             "Date",
+    //             "Price",
+    //             "Volume",
+    //             "TotalVolume",
+    //             "Side"
+    //         ];
+    //         var table = loadIntradayQuotes(
+    //             _this.intradayQuotes,
+    //             filterColumn,
+    //             log
+    //         );
 
-        var url =
-            "https://www.fireant.vn/api/Data/Markets/HistoricalQuotes?symbol=" +
-            _this.stockCode +
-            "&startDate=" +
-            _this.beginDateString +
-            "&endDate=" +
-            _this.currentDateString;
+    //         // Append table
+    //         var targetAppend = document.getElementById(
+    //             "containerIntradayQuotes"
+    //         );
 
-        makeCorsRequest(url, function(data) {
-            _this.historicalQuotes = data.reverse();
-            var filterColumn = [
-                // "Symbol",
-                "Date",
-                "Open",
-                "Close",
-                "High",
-                "Low",
-                "Volume",
-                "Value"
-            ];
-            var table = _this.loadIntradayQuotes(
-                _this.historicalQuotes,
-                filterColumn,
-                log
-            );
+    //         targetAppend.innerHTML = "";
+    //         targetAppend.appendChild(table);
 
-            var targetAppend = document.getElementById(
-                "containerHistoricalQuotes"
-            );
-            targetAppend.innerHTML = "";
-            targetAppend.appendChild(table);
-        });
+    //         // Append chart
+    //         var targetChart = document.getElementById("IntradayChart");
 
-        return true;
-    }
+    //         // targetAppend.innerHTML = "";
+    //         var charDataSliced = _this.intradayQuotes.reverse();
+    //         var chartData = getCol(charDataSliced, "Price");
+    //         var chartLabel = getCol(charDataSliced, "Date");
+    //         var chart = new ChartDrawing(targetChart, chartLabel, chartData);
+    //     });
+    //     return true;
+    // }
 
-    loadIntradayQuotes(
-        data = null,
-        filterColumn = [],
-        caption = null,
-        timeFormat = ""
-    ) {
-        var appendParent = document.getElementById("containerLoading");
-        var table = document.createElement("table");
+    // getHistoricalQuotes(beginDate = null, currentDate = new Date()) {
+    //     var _this = this;
+    //     var log = "Historical Quotes: " + _this.stockCode;
 
-        var tableKeys = Object.keys(data[0]);
-        var filterLength = filterColumn.length;
-        if (filterLength) {
-            tableKeys = filterColumn;
-        }
+    //     // _this.currentDateString = currentDate.toISOString();
+    //     _this.currentDateString = convertDateString(currentDate);
 
-        var titleRow = document.createElement("tr");
-        tableKeys.forEach(key => {
-            var th = document.createElement("th");
-            th.innerText = key;
-            titleRow.appendChild(th);
-        });
+    //     if (!beginDate) {
+    //         beginDate = currentDate;
+    //         beginDate.setYear(beginDate.getFullYear() - 1);
+    //     }
+    //     _this.beginDateString = convertDateString(beginDate);
 
-        var tableHead = document.createElement("thead");
-        tableHead.appendChild(titleRow);
-        table.appendChild(tableHead);
+    //     var url =
+    //         "https://www.fireant.vn/api/Data/Markets/HistoricalQuotes?symbol=" +
+    //         _this.stockCode +
+    //         "&startDate=" +
+    //         _this.beginDateString +
+    //         "&endDate=" +
+    //         _this.currentDateString;
 
-        var tableBody = document.createElement("tbody");
+    //     var getData = new getDataURL(url);
 
-        data.forEach(item => {
-            var row = document.createElement("tr");
-            tableKeys.forEach(key => {
-                var td = document.createElement("td");
+    //     getData.makeCorsRequest(function(data) {
+    //         _this.historicalQuotes = data.reverse();
+    //         var filterColumn = [
+    //             // "Symbol",
+    //             "Date",
+    //             "Open",
+    //             "Close",
+    //             "High",
+    //             "Low",
+    //             "Volume",
+    //             "Value"
+    //         ];
+    //         var table = loadIntradayQuotes(
+    //             _this.historicalQuotes,
+    //             filterColumn,
+    //             log
+    //         );
 
-                if (key.search("Date") != -1) {
-                    var date = new Date(item[key]);
-                    item[key] = date.toLocaleString();
-                }
+    //         var targetAppend = document.getElementById(
+    //             "containerHistoricalQuotes"
+    //         );
 
-                td.innerText = !isNaN(item[key])
-                    ? Math.round(item[key])
-                    : item[key];
-                row.appendChild(td);
-            });
-            tableBody.appendChild(row);
-        });
+    //         // Append table
+    //         targetAppend.innerHTML = "";
+    //         targetAppend.appendChild(table);
 
-        table.appendChild(tableBody);
+    //         // Append chart
+    //         var targetChart = document.getElementById("HistoricalChart");
 
-        if (caption) {
-            var captionEl = document.createElement("caption");
-            captionEl.innerText = caption;
-            table.appendChild(captionEl);
-        }
+    //         // targetAppend.innerHTML = "";
+    //         var charDataSliced = _this.historicalQuotes.reverse();
+    //         var chartData = getCol(charDataSliced, "Close");
+    //         var chartLabel = getCol(charDataSliced, "Date");
+    //         var chart = new ChartDrawing(targetChart, chartLabel, chartData);
+    //     });
 
-        return table;
-    }
+    //     return true;
+    // }
 }

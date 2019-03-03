@@ -39,8 +39,6 @@ class ChartDrawing {
 
     draw() {
         var _this = this;
-        console.log("_this._chartLabel: ", _this.chartLabel);
-        console.log("_this._chartData: ", _this.chartData);
         new Chart(_this.element, {
             type: "line",
             data: {
@@ -65,7 +63,7 @@ class ChartDrawing {
                             "rgba(153, 102, 255, 1)",
                             "rgba(255, 159, 64, 1)"
                         ],
-                        borderWidth: 1
+                        borderWidth: 3
                     }
                 ]
             },

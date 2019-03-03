@@ -1,8 +1,11 @@
 jsFilesImport = [
+    "getDataURL.js",
     "extention.js",
-    "xhr.js",
+    "helper.js",
     "getStockInfo.js",
-    "chartDrawing.js"
+    "chartDrawing.js",
+    "Intraday.js",
+    "historical.js"
 ];
 
 jsFilesImport.forEach(file => {
