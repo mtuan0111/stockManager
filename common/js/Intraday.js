@@ -151,12 +151,11 @@ class intraDay {
             beginDate.setDate(beginDate.getDate() - 5);
             refSelectHistoricalPrice.beginDateString = beginDate;
             refSelectHistoricalPrice.getHistoricalQuotes(function() {
-                var lenghtHistoricalQuotes =
-                    refSelectHistoricalPrice.historicalQuotes.length;
+                // var lenghtHistoricalQuotes =
+                //     refSelectHistoricalPrice.historicalQuotes.length;
 
                 _this._referencePrice =
                     refSelectHistoricalPrice.historicalQuotes[1]["Close"];
-                return _this._referencePrice;
             });
             return _this._referencePrice;
         }
@@ -215,7 +214,11 @@ class intraDay {
             _this.intradayQuotes = data;
             // console.log("_this.targetAppend: ", _this.targetAppend);
 
-            if (appendTable && isset(_this.targetAppend)) {
+            if (
+                appendTable &&
+                isset(_this.targetAppend) &&
+                _this.targetAppend
+            ) {
                 var table = loadIntradayQuotes(
                     _this.intradayQuotes,
                     _this.filterColumn,

@@ -101,3 +101,19 @@ function roundPercent(number, round = 3) {
     var percent = Math.round(number * rounded);
     return percent / (rounded / 100);
 }
+
+function setValueElement(element, value) {
+    var typeElement = typeof element;
+
+    switch (typeElement) {
+        case "input":
+            element.setAttribute("value", value);
+        // break;
+        case "span":
+            element.setAttribute("data-value", value);
+        // break;
+        default:
+            element.innerText = value;
+            break;
+    }
+}

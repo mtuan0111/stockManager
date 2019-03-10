@@ -6,18 +6,16 @@ html
     title Page Title
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', type='text/css', media='screen', href='../common/css/main.css')
-    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css')
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
 
   body
-
     //- include header
     include ../template/head.pug
 
     .center.row
       include ../template/sidebar.pug
 
-      #userCommand.s10.col
+      #watchList.s10.col
         table.highlight.centered
           thead
             tr
@@ -42,9 +40,9 @@ html
       //- canvas#IntradayChart
       //- canvas#HistoricalChart
 
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js' crossorigin='anonymous')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js')
+    script(src='../libs/materialize/dist/js/materialize.min.js')
+    script(src='../libs/jquery/dist/jquery.min.js' crossorigin='anonymous')
+    //- script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js')
 
     script(src='../common/js/behavior.js')
     script(src='../common/js/mainUser.js')

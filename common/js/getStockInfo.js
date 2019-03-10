@@ -1,6 +1,6 @@
 class stockInfo {
     constructor(
-        stockCode = "",
+        stockCode = "ACB",
         stockCodeInputElement = null,
         currentIntradayPriceElement = null,
         currentIntradayPricePercentElement = null,
@@ -84,9 +84,7 @@ class stockInfo {
         // Load quotes
 
         if (params.stockCode) {
-            this.stockCode = params.stockCode.toUpperCase();
-            this.intradayQuotes;
-            this.historicalQuotes;
+            this.searchStock(params.stockCode);
         }
     }
 
@@ -170,6 +168,7 @@ class stockInfo {
 
         if (isset(_this.maxIntradayPricePercentElement)) {
             var inputElementPercent = _this.maxIntradayPricePercentElement;
+
             inputElementPercent.innerText = price.increasePercent + "%";
             inputElementPercent.setAttribute(
                 "data-value",
@@ -235,6 +234,7 @@ class stockInfo {
     }
 
     get roofPrice() {
+        // return 0;
         var _this = this;
         if (!isset(_this._referencePrice)) {
             return 0;
@@ -243,6 +243,7 @@ class stockInfo {
     }
 
     get floorPrice() {
+        // return 0;
         var _this = this;
         if (!isset(_this._referencePrice)) {
             return 0;
@@ -308,6 +309,13 @@ class stockInfo {
         this._historicalQuotes.getHistoricalQuotes(function(data) {}, 1);
         return true;
     }
+
+    searchStock(stockCode) {
+        this.stockCode = stockCode.toUpperCase();
+        this.intradayQuotes;
+        this.historicalQuotes;
+    }
+
     // getIntradayQuotes() {
     //     var _this = this;
     //     var log = "Intraday Quotes: " + _this.stockCode;

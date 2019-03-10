@@ -16,5 +16,8 @@ jsFilesImport.forEach(file => {
 
 $(document).ready(function() {
     // var stockHelper = new stockHelper();
-    var behavior = new userBehavior();
+    setTimeout(function() {
+        var behavior = new userBehavior();
+        behavior.createSearchEvent();
+    }, 200);
 });

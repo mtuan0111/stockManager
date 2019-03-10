@@ -133,7 +133,11 @@ class historicalQuotes {
             // _this.currentPrice = data[data.length - 1]["Price"];
             _this.historicalQuotes = data.reverse();
 
-            if (appendTable && _this.targetAppend) {
+            if (
+                appendTable &&
+                isset(_this.targetAppend) &&
+                _this.targetAppend
+            ) {
                 var table = loadIntradayQuotes(
                     _this.historicalQuotes,
                     _this.filterColumn,

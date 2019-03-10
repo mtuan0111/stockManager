@@ -1,10 +1,17 @@
 class userBehavior {
     constructor() {
         var _this = this;
+        // _this.createSearchEvent();
 
-        setTimeout(function() {
-            var firstStock = new stockInfo({
-                stockCode: "ACB",
+        _this.searchingStock = "ACB";
+        // console.log("this._searchingStock: ", this._searchingStock);
+    }
+
+    set searchingStock(stockCode) {
+        var _this = this;
+        if (!isset(this._searchingStock)) {
+            this._searchingStock = new stockInfo({
+                stockCode: stockCode,
                 stockCodeInputElement: _this.inputStockCode,
 
                 currentIntradayPriceElement: _this.currentIntradayPrice,
@@ -28,9 +35,9 @@ class userBehavior {
                 intraDayQuotesTableElement: _this.intraDayQuotesTable,
                 historicalQuotesTableElement: _this.historicalQuotesTable
             });
-        }, 500);
-
-        _this.createSearchEvent();
+        } else {
+            this._searchingStock.searchStock(stockCode);
+        }
     }
 
     get inputStockCode() {
@@ -129,6 +136,7 @@ class userBehavior {
     set openIntradayPrice(element) {
         this._openIntradayPrice = element;
     }
+
     get openIntradayPricePercent() {
         var _this = this;
         if (isset(_this._openIntradayPricePercent)) {
@@ -200,6 +208,7 @@ class userBehavior {
     set intraDayQuotesTable(element) {
         this._intraDayQuotesTable = element;
     }
+
     get historicalQuotesTable() {
         var _this = this;
         if (isset(_this._historicalQuotesTable)) {
@@ -219,28 +228,7 @@ class userBehavior {
         btnSearch.addEventListener("click", function() {
             var inputStockCode = document.getElementsByName("stockCode")[0]
                 .value;
-            var searchingStock = new stockInfo({
-                stockCode: inputStockCode,
-                stockCodeInputElement: _this.inputStockCode,
-
-                currentIntradayPriceElement: _this.currentIntradayPrice,
-                currentIntradayPricePercentElement:
-                    _this.currentIntradayPricePercent,
-
-                maxIntradayPriceElement: _this.maxIntradayPrice,
-                maxIntradayPricePercentElement: _this.maxIntradayPricePercent,
-
-                minIntradayPriceElement: _this.minIntradayPrice,
-                minIntradayPricePercentElement: _this.minIntradayPricePercent,
-
-                openIntradayPriceElement: _this.openIntradayPrice,
-                openIntradayPricePercentElement: _this.openIntradayPricePercent,
-
-                referenceIntradayPriceElement: _this.referenceIntradayPrice,
-
-                intraDayQuotesTableElement: _this.intraDayQuotesTable,
-                historicalQuotesTableElement: _this.historicalQuotesTable
-            });
+            _this.searchingStock = inputStockCode;
         });
 
         var inputStockCode = document.getElementById("stockCode");
@@ -272,7 +260,6 @@ class userBehavior {
 // behavior.prototype.getMainNavItems = function() {
 //     _this = this;
 //     leftFrame1 = document.getElementsByName("leftFrame1");
-
 //     this.getMainNavItems = _this.iframeRef(leftFrame1[0]);
 //     // this.getMainNavItems = this.getMainNavItems.getElementsByTagName("tr");
 //     // _this.getMainNavItems = document.get;
