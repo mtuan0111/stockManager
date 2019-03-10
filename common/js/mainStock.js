@@ -1,7 +1,7 @@
 jsFilesImport = [
+    "stockHelper.js",
     "getDataURL.js",
     "extention.js",
-    "helper.js",
     "getStockInfo.js",
     "chartDrawing.js",
     "Intraday.js",
@@ -10,10 +10,11 @@ jsFilesImport = [
 
 jsFilesImport.forEach(file => {
     var imported = document.createElement("script");
-    imported.src = "common/js/" + file;
+    imported.src = "../common/js/" + file;
     document.head.appendChild(imported);
 });
 
 $(document).ready(function() {
+    // var stockHelper = new stockHelper();
     var behavior = new userBehavior();
 });

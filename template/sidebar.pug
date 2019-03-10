@@ -1,0 +1,56 @@
+.sidebar.center.s2.col
+    .input-field.center-align
+        input#stockCode.validate.center-align(type='text' name="stockCode")
+        label(for='stockCode') StockCode
+    a.waves-effect.waves-light.btn#btnSearch.col.s12
+        | Search
+        i.material-icons.right search
+
+    ul.collection.col.s12
+        li.collection-item
+        span.badge.currentIntradayPricePercent
+        .input-field
+            input.currentIntradayPrice.center-align(type='text', placeholder= "")
+            label.currentIntradayLabel(for='disabled') Current price
+            //- input.currentIntradayPricePercent.center-align(type='text', placeholder= "")
+
+
+        li.collection-item
+        //- i.material-icons.circle border_top
+        span.badge.maxIntradayPricePercent
+        .input-field
+            input.maxIntradayPrice.center-align(type='text', placeholder= "")
+            label.maxIntradayLabel(for='disabled') Max price
+            //- input.maxIntradayPricePercent.center-align(type='text', placeholder= "")
+
+
+        li.collection-item
+        //- i.material-icons.circle border_bottom
+        span.badge.minIntradayPricePercent
+        .input-field
+            input.minIntradayPrice.center-align(type='text', placeholder= "")
+            label.minIntradayLabel(for='disabled') Min price
+
+        li.collection-item
+        //- i.material-icons.circle border_bottom
+        span.badge.openIntradayPricePercent
+        .input-field
+            input.openIntradayPrice.center-align( type='text', placeholder= "")
+            label.openIntradayLabel(for='disabled') Open price
+            //- input.openIntradayPricePercent.center-align(type='text', placeholder= "")
+
+        li.collection-item
+        //- i.material-icons.circle border_bottom
+        //- span.badge.roofIntradayPrice
+        //- span.badge.floorIntradayPrice
+        .input-field
+            input.referenceIntradayPrice.center-align( type='text', placeholder= "")
+            label.referenceIntradayLabel(for='disabled') Reference price
+
+        .input-field
+            input.roofIntradayPrice.green-text.center-align( type='text', placeholder= "")
+            label.roofIntradayLabel(for='disabled') Roof price
+
+        .input-field
+            input.floorIntradayPrice.red-text.center-align( type='text', placeholder= "")
+            label.floorIntradayLabel(for='disabled') Floor price

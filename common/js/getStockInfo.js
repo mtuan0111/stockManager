@@ -1,15 +1,98 @@
 class stockInfo {
-    constructor(stockCode = "") {
-        var _this = this;
-        _this.stockCode = stockCode.toUpperCase();
-        _this.intradayQuotes;
-        _this.historicalQuotes;
+    constructor(
+        stockCode = "",
+        stockCodeInputElement = null,
+        currentIntradayPriceElement = null,
+        currentIntradayPricePercentElement = null,
+        maxIntradayPriceElement = null,
+        maxIntradayPricePercentElement = null,
+        minIntradayPriceElement = null,
+        minIntradayPricePercentElement = null,
+        openIntradayPriceElement = null,
+        openIntradayPricePercentElement = null,
+        roofIntradayPriceElement = null,
+        floorIntradayPriceElement = null,
+        referenceIntradayPriceElement = null,
+        intraDayQuotesTableElement = null,
+        historicalQuotesTableElement = null
+    ) {
+        // var _this = this;
+        var params = stockCode;
+
+        if (params.stockCodeInputElement) {
+            this.stockCodeInputElement = params.stockCodeInputElement;
+        }
+
+        if (params.currentIntradayPriceElement) {
+            this.currentIntradayPriceElement =
+                params.currentIntradayPriceElement;
+        }
+
+        if (params.currentIntradayPricePercentElement) {
+            this.currentIntradayPricePercentElement =
+                params.currentIntradayPricePercentElement;
+        }
+
+        if (params.maxIntradayPriceElement) {
+            this.maxIntradayPriceElement = params.maxIntradayPriceElement;
+        }
+
+        if (params.maxIntradayPricePercentElement) {
+            this.maxIntradayPricePercentElement =
+                params.maxIntradayPricePercentElement;
+        }
+        if (params.minIntradayPriceElement) {
+            this.minIntradayPriceElement = params.minIntradayPriceElement;
+        }
+
+        if (params.minIntradayPricePercentElement) {
+            this.minIntradayPricePercentElement =
+                params.minIntradayPricePercentElement;
+        }
+
+        if (params.openIntradayPriceElement) {
+            this.openIntradayPriceElement = params.openIntradayPriceElement;
+        }
+
+        if (params.openIntradayPricePercentElement) {
+            this.openIntradayPricePercentElement =
+                params.openIntradayPricePercentElement;
+        }
+
+        if (params.roofIntradayPriceElement) {
+            this.roofIntradayPriceElement = params.roofIntradayPriceElement;
+        }
+
+        if (params.floorIntradayPriceElement) {
+            this.floorIntradayPriceElement = params.floorIntradayPriceElement;
+        }
+
+        if (params.referenceIntradayPriceElement) {
+            this.referenceIntradayPriceElement =
+                params.referenceIntradayPriceElement;
+        }
+
+        if (params.intraDayQuotesTableElement) {
+            this.intraDayQuotesTableElement = params.intraDayQuotesTableElement;
+        }
+
+        if (params.historicalQuotesTableElement) {
+            this.historicalQuotesTableElement =
+                params.historicalQuotesTableElement;
+        }
+
+        // Load quotes
+
+        if (params.stockCode) {
+            this.stockCode = params.stockCode.toUpperCase();
+            this.intradayQuotes;
+            this.historicalQuotes;
+        }
     }
 
     set stockCode(stockCode) {
-        var _this = this;
-        _this._stockCode = stockCode;
-        _this.stockCodeInput = stockCode;
+        this._stockCode = stockCode;
+        this.stockCodeInput = stockCode;
     }
 
     get stockCode() {
@@ -17,127 +100,197 @@ class stockInfo {
         return _this._stockCode;
     }
 
-    set stockCodeInput(stockCode) {
-        var _this = this;
-        _this.stockCodeInput.value = stockCode;
-        _this.stockCodeInput.focus();
+    set stockBoughtPrice(Price) {
+        this._stockBoughtPrice = Price;
     }
 
-    get stockCodeInput() {
-        var inputElement = document.getElementsByName("stockCode")[0];
-        return inputElement;
+    get stockBoughtPrice() {
+        var _this = this;
+        return _this._stockBoughtPrice;
     }
+
+    set stockCodeInputElement(el) {
+        this._stockCodeInputElement = el;
+    }
+
+    get stockCodeInputElement() {
+        var _this = this;
+        if (isset(_this._stockCodeInputElement))
+            return _this._stockCodeInputElement;
+        return null;
+    }
+
+    set stockCodeInput(stockCode) {
+        var _this = this;
+
+        if (_this.stockCodeInputElement) {
+            _this.stockCodeInputElement.value = stockCode;
+            _this.stockCodeInputElement.focus();
+        }
+    }
+
+    // get stockCodeInput() {
+    //     var inputElement = document.getElementsByName("stockCode")[0];
+    //     return inputElement;
+    // }
 
     set currentPrice(price) {
         var _this = this;
-        var inputElement = document.getElementsByClassName(
-            "currentIntradayPrice"
-        )[0];
-
-        var inputElementPercent = document.getElementsByClassName(
-            "currentIntradayPricePercent"
-        )[0];
-
         _this._currentPrice = price;
-        inputElement.setAttribute("value", price.value);
-        inputElementPercent.innerText = price.increasePercent + "%";
-        inputElementPercent.setAttribute("data-value", price.increasePercent);
+
+        if (isset(_this.currentIntradayPriceElement)) {
+            var inputElement = _this.currentIntradayPriceElement;
+            inputElement.setAttribute("value", price.value);
+        }
+
+        if (isset(_this.currentIntradayPricePercentElement)) {
+            var inputElementPercent = _this.currentIntradayPricePercentElement;
+            inputElementPercent.innerText = price.increasePercent + "%";
+            inputElementPercent.setAttribute(
+                "data-value",
+                price.increasePercent
+            );
+        }
     }
 
     get currentPrice() {
         var _this = this;
-        if (typeof _this._currentPrice != "undefined") return 0;
+        if (!isset(_this._currentPrice)) return 0;
         return _this._currentPrice;
     }
 
     set maxPrice(price) {
         var _this = this;
-        var inputElement = document.getElementsByClassName(
-            "maxIntradayPrice"
-        )[0];
-
-        var inputElementPercent = document.getElementsByClassName(
-            "maxIntradayPricePercent"
-        )[0];
-
         _this._maxPrice = price;
-        inputElement.setAttribute("value", price.value);
-        inputElementPercent.innerText = price.increasePercent + "%";
-        inputElementPercent.setAttribute("data-value", price.increasePercent);
+
+        if (isset(_this.maxIntradayPriceElement)) {
+            var inputElement = _this.maxIntradayPriceElement;
+            inputElement.setAttribute("value", price.value);
+        }
+
+        if (isset(_this.maxIntradayPricePercentElement)) {
+            var inputElementPercent = _this.maxIntradayPricePercentElement;
+            inputElementPercent.innerText = price.increasePercent + "%";
+            inputElementPercent.setAttribute(
+                "data-value",
+                price.increasePercent
+            );
+        }
     }
 
     get maxPrice() {
         var _this = this;
-        if (typeof _this._maxPrice != "undefined") return 0;
+        if (!isset(_this._maxPrice)) return 0;
         return _this._maxPrice;
     }
 
     set minPrice(price) {
         var _this = this;
-        var inputElement = document.getElementsByClassName(
-            "minIntradayPrice"
-        )[0];
-
-        var inputElementPercent = document.getElementsByClassName(
-            "minIntradayPricePercent"
-        )[0];
-
         _this._minPrice = price;
-        inputElement.setAttribute("value", price.value);
-        inputElementPercent.innerText = price.increasePercent + "%";
-        inputElementPercent.setAttribute("data-value", price.increasePercent);
+
+        if (isset(_this.minIntradayPriceElement)) {
+            var inputElement = _this.minIntradayPriceElement;
+            inputElement.setAttribute("value", price.value);
+        }
+
+        if (isset(_this.minIntradayPricePercentElement)) {
+            var inputElementPercent = _this.minIntradayPricePercentElement;
+            inputElementPercent.innerText = price.increasePercent + "%";
+            inputElementPercent.setAttribute(
+                "data-value",
+                price.increasePercent
+            );
+        }
     }
 
     get minPrice() {
         var _this = this;
-        if (typeof _this._minPrice != "undefined") return 0;
+        if (!isset(_this._minPrice)) return 0;
         return _this._minPrice;
     }
 
     set openPrice(price) {
         var _this = this;
-        var inputElement = document.getElementsByClassName(
-            "openIntradayPrice"
-        )[0];
-
-        var inputElementPercent = document.getElementsByClassName(
-            "openIntradayPricePercent"
-        )[0];
-
         this._openPrice = price;
-        inputElement.setAttribute("value", price.value);
-        inputElementPercent.innerText = price.increasePercent + "%";
-        inputElementPercent.setAttribute("data-value", price.increasePercent);
+
+        if (isset(_this.openIntradayPriceElement)) {
+            var inputElement = _this.openIntradayPriceElement;
+            inputElement.setAttribute("value", price.value);
+        }
+
+        if (isset(_this.openIntradayPricePercentElement)) {
+            var inputElementPercent = _this.openIntradayPricePercentElement;
+            inputElementPercent.innerText = price.increasePercent + "%";
+            inputElementPercent.setAttribute(
+                "data-value",
+                price.increasePercent
+            );
+        }
     }
 
     get openPrice() {
         var _this = this;
-        if (typeof _this._openPrice != "undefined") return 0;
+        if (!isset(_this._openPrice)) return 0;
         return _this._openPrice;
+    }
+
+    get roofPrice() {
+        var _this = this;
+        if (!isset(_this._referencePrice)) {
+            return 0;
+        }
+        return Math.floor((_this._referencePrice / 100) * 1.07) * 100;
+    }
+
+    get floorPrice() {
+        var _this = this;
+        if (!isset(_this._referencePrice)) {
+            return 0;
+        }
+        return Math.floor((_this._referencePrice / 100) * 0.93) * 100;
     }
 
     set referencePrice(price) {
         var _this = this;
-        var inputElement = document.getElementsByClassName(
-            "referenceIntradayPrice"
-        )[0];
-
         this._referencePrice = price;
-        inputElement.setAttribute("value", price);
+
+        if (isset(_this.roofIntradayPriceElement)) {
+            var inputElement = _this.roofIntradayPriceElement;
+            // inputElement.innerText = _this.roofPrice;
+            inputElement.setAttribute("value", _this.roofPrice);
+        }
+
+        // console.log(
+        //     "_this.floorIntradayPriceElement: ",
+        //     _this.floorIntradayPriceElement
+        // );
+        if (isset(_this.floorIntradayPriceElement)) {
+            var inputElement = _this.floorIntradayPriceElement;
+            // inputElement.innerText = _this.floorPrice;
+            inputElement.setAttribute("value", _this.floorPrice);
+        }
+
+        if (isset(_this.referenceIntradayPriceElement)) {
+            var inputElement = _this.referenceIntradayPriceElement;
+            inputElement.setAttribute("value", price);
+        }
     }
 
     get intradayQuotes() {
         var _this = this;
-        this._intradayQuotes = new intraDay(this.stockCode);
+        this._intradayQuotes = new intraDay(_this.stockCode);
+
+        if (isset(_this.intraDayQuotesTableElement)) {
+            this._intradayQuotes.targetAppend =
+                _this.intraDayQuotesTableElement;
+        }
+
         this._intradayQuotes.getIntradayQuotes(function(data) {
             _this.currentPrice = _this._intradayQuotes.latestPrice;
             _this.maxPrice = _this._intradayQuotes.maxPrice;
-            // console.log("_this.maxPrice: ", _this.maxPrice);
-            // console.log("_this._intradayQuotes.maxPrice: ", _this._intradayQuotes.maxPrice);
             _this.minPrice = _this._intradayQuotes.minPrice;
             _this.openPrice = _this._intradayQuotes.firstPrice;
             _this.referencePrice = _this._intradayQuotes.referencePrice;
-            console.log("_this.openPrice: ", _this.openPrice);
             _this.distinctPrice = _this._intradayQuotes.arrayDistinctPrice;
         }, 1);
         return this._intradayQuotes;
@@ -146,7 +299,13 @@ class stockInfo {
     get historicalQuotes() {
         var _this = this;
         this._historicalQuotes = new historicalQuotes(this.stockCode);
-        this._historicalQuotes.getHistoricalQuotes(function(table) {}, 1);
+
+        if (isset(_this.historicalQuotesTableElement)) {
+            this._historicalQuotes.targetAppend =
+                _this.historicalQuotesTableElement;
+        }
+
+        this._historicalQuotes.getHistoricalQuotes(function(data) {}, 1);
         return true;
     }
     // getIntradayQuotes() {

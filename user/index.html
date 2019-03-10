@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="../common/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper container"><a class="brand-logo" href="#">Stock manager</a>
+        <ul class="right hide-on-med-and-down" id="nav-mobile">
+          <li><a href="/stock_manager/stock/index.html">Stock research</a></li>
+          <li><a href="/stock_manager/user/index.html">User's stock</a></li>
+          <li><a href="collapsible.html">JavaScript</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="center row">
+      <div class="sidebar center s2 col">
+        <div class="input-field center-align">
+          <input class="validate center-align" id="stockCode" type="text" name="stockCode">
+          <label for="stockCode">StockCode</label>
+        </div><a class="waves-effect waves-light btn col s12" id="btnSearch">Search<i class="material-icons right">search</i></a>
+        <ul class="collection col s12">
+          <li class="collection-item"></li><span class="badge currentIntradayPricePercent"></span>
+          <div class="input-field">
+            <input class="currentIntradayPrice center-align" type="text" placeholder="">
+            <label class="currentIntradayLabel" for="disabled">Current price</label>
+          </div>
+          <li class="collection-item"></li><span class="badge maxIntradayPricePercent"></span>
+          <div class="input-field">
+            <input class="maxIntradayPrice center-align" type="text" placeholder="">
+            <label class="maxIntradayLabel" for="disabled">Max price</label>
+          </div>
+          <li class="collection-item"></li><span class="badge minIntradayPricePercent"></span>
+          <div class="input-field">
+            <input class="minIntradayPrice center-align" type="text" placeholder="">
+            <label class="minIntradayLabel" for="disabled">Min price</label>
+          </div>
+          <li class="collection-item"></li><span class="badge openIntradayPricePercent"></span>
+          <div class="input-field">
+            <input class="openIntradayPrice center-align" type="text" placeholder="">
+            <label class="openIntradayLabel" for="disabled">Open price</label>
+          </div>
+          <li class="collection-item"></li>
+          <div class="input-field">
+            <input class="referenceIntradayPrice center-align" type="text" placeholder="">
+            <label class="referenceIntradayLabel" for="disabled">Reference price</label>
+          </div>
+          <div class="input-field">
+            <input class="roofIntradayPrice green-text center-align" type="text" placeholder="">
+            <label class="roofIntradayLabel" for="disabled">Roof price</label>
+          </div>
+          <div class="input-field">
+            <input class="floorIntradayPrice red-text center-align" type="text" placeholder="">
+            <label class="floorIntradayLabel" for="disabled">Floor price</label>
+          </div>
+        </ul>
+      </div>
+      <div class="s10 col" id="userCommand">
+        <table class="highlight centered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Item Name</th>
+              <th>Item Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Alvin</td>
+              <td>Eclair</td>
+              <td>$0.87</td>
+            </tr>
+            <tr>
+              <td>Alan</td>
+              <td>Jellybean</td>
+              <td>$3.76</td>
+            </tr>
+            <tr>
+              <td>Jonathan</td>
+              <td>Lollipop</td>
+              <td>$7.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+    <script src="../common/js/behavior.js"></script>
+    <script src="../common/js/mainUser.js"></script>
+  </body>
+</html>

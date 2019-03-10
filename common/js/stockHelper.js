@@ -1,3 +1,7 @@
+const dateToLocationString = 0;
+const dateToLocaleDateString = 1;
+const dateToLocaleTimeString = 2;
+
 function compare(a, b) {
     if (a["Date"] < b["Date"]) return -1;
     if (a["Date"] > b["Date"]) return 1;
@@ -18,10 +22,6 @@ function getMaxOfArray(numArray) {
 function getMinOfArray(numArray) {
     return Math.min.apply(null, numArray);
 }
-
-const dateToLocationString = 0;
-const dateToLocaleDateString = 1;
-const dateToLocaleTimeString = 2;
 
 function loadIntradayQuotes(
     data = null,
@@ -96,7 +96,8 @@ function comparePercent(referenceValue, compareValue) {
     return ratioValue - 1;
 }
 
-function roundPercent(number, round = 5) {
+function roundPercent(number, round = 3) {
     var rounded = Math.pow(10, round);
-    return (Math.round(number * rounded) / rounded) * 100;
+    var percent = Math.round(number * rounded);
+    return percent / (rounded / 100);
 }

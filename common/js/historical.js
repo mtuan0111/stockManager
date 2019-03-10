@@ -105,7 +105,8 @@ class historicalQuotes {
         if (isset(this._targetAppend)) {
             return this._targetAppend;
         }
-        return document.getElementById("containerHistoricalQuotes");
+        return null;
+        // return document.getElementById("containerHistoricalQuotes");
     }
 
     set targetChart(element) {
@@ -117,7 +118,10 @@ class historicalQuotes {
         if (isset(this._targetChart)) {
             return this._targetChart;
         }
-        return document.getElementById("HistoricalChart");
+
+        throw new Error("You are not select the table element yet!");
+        return null;
+        // return document.getElementById("HistoricalChart");
     }
 
     getHistoricalQuotes(callback, appendTable = 0) {
@@ -129,14 +133,13 @@ class historicalQuotes {
             // _this.currentPrice = data[data.length - 1]["Price"];
             _this.historicalQuotes = data.reverse();
 
-            var table = loadIntradayQuotes(
-                _this.historicalQuotes,
-                _this.filterColumn,
-                _this.log,
-                dateToLocaleDateString
-            );
-
-            if (appendTable) {
+            if (appendTable && _this.targetAppend) {
+                var table = loadIntradayQuotes(
+                    _this.historicalQuotes,
+                    _this.filterColumn,
+                    _this.log,
+                    dateToLocaleDateString
+                );
                 // Append table
                 var targetAppend = _this.targetAppend;
 
@@ -154,7 +157,7 @@ class historicalQuotes {
             // var chart = new ChartDrawing(targetChart, chartLabel, chartData);
 
             // callBack
-            callback(table);
+            callback(data);
         });
         return true;
     }

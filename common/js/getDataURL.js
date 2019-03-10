@@ -65,7 +65,10 @@ class getDataURL {
                 callback(data);
             } else {
                 // this.dataURL = null;
-                window.alertError = alert("Please input the valid stock Code");
+                // window.alertError = alert("Please input the valid stock Code");
+                throw new Error(
+                    "Something went badly wrong!\nPlease input the valid stock Code"
+                );
                 return;
             }
         };

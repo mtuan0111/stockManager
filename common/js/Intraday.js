@@ -188,7 +188,10 @@ class intraDay {
         if (isset(this._targetAppend)) {
             return this._targetAppend;
         }
-        return document.getElementById("containerIntradayQuotes");
+
+        // throw new Error("You are not select the table element yet!");
+        return null;
+        // return document.getElementById("containerIntradayQuotes");
     }
 
     set targetChart(element) {
@@ -210,15 +213,15 @@ class intraDay {
 
         getData.makeCorsRequest(function(data) {
             _this.intradayQuotes = data;
+            // console.log("_this.targetAppend: ", _this.targetAppend);
 
-            var table = loadIntradayQuotes(
-                _this.intradayQuotes,
-                _this.filterColumn,
-                _this.log,
-                dateToLocaleTimeString
-            );
-
-            if (appendTable) {
+            if (appendTable && isset(_this.targetAppend)) {
+                var table = loadIntradayQuotes(
+                    _this.intradayQuotes,
+                    _this.filterColumn,
+                    _this.log,
+                    dateToLocaleTimeString
+                );
                 // Append table
                 var targetAppend = _this.targetAppend;
 
