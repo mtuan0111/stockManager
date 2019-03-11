@@ -22,7 +22,7 @@ $(document).ready(function() {
     }, 200);
 
     setTimeout(function() {
-        var listStockCode = ["HAG", "FLC", "ACB", "HUT"];
+        var listStockCode = ["HAG", "HNG", "FLC", "ACB", "HUT"];
         var userWatchList = new watchList({
             listStockCode: listStockCode,
             targetAppend: document.getElementById("watchList")

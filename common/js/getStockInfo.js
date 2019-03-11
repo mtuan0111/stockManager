@@ -122,8 +122,9 @@ class stockInfo {
         var _this = this;
 
         if (_this.stockCodeInputElement) {
-            _this.stockCodeInputElement.value = stockCode;
-            _this.stockCodeInputElement.focus();
+            // _this.stockCodeInputElement.value = stockCode;
+            setValueElement(_this.stockCodeInputElement, stockCode);
+            // _this.stockCodeInputElement.focus();
         }
     }
 
@@ -138,16 +139,19 @@ class stockInfo {
 
         if (isset(_this.currentIntradayPriceElement)) {
             var inputElement = _this.currentIntradayPriceElement;
-            inputElement.setAttribute("value", price.value);
+            // inputElement.setAttribute("value", price.value);
+            // console.log("inputElement: ", inputElement);
+            setValueElement(inputElement, price.value);
         }
 
         if (isset(_this.currentIntradayPricePercentElement)) {
             var inputElementPercent = _this.currentIntradayPricePercentElement;
-            inputElementPercent.innerText = price.increasePercent + "%";
-            inputElementPercent.setAttribute(
-                "data-value",
-                price.increasePercent
-            );
+            // inputElementPercent.innerText = price.increasePercent + "%";
+            // inputElementPercent.setAttribute(
+            //     "data-value",
+            //     price.increasePercent
+            // );
+            setValueElement(inputElementPercent, price.increasePercent);
         }
     }
 
@@ -163,17 +167,19 @@ class stockInfo {
 
         if (isset(_this.maxIntradayPriceElement)) {
             var inputElement = _this.maxIntradayPriceElement;
-            inputElement.setAttribute("value", price.value);
+            // inputElement.setAttribute("value", price.value);
+            setValueElement(inputElement, price.value);
         }
 
         if (isset(_this.maxIntradayPricePercentElement)) {
             var inputElementPercent = _this.maxIntradayPricePercentElement;
 
-            inputElementPercent.innerText = price.increasePercent + "%";
-            inputElementPercent.setAttribute(
-                "data-value",
-                price.increasePercent
-            );
+            // inputElementPercent.innerText = price.increasePercent + "%";
+            // inputElementPercent.setAttribute(
+            //     "data-value",
+            //     price.increasePercent
+            // );
+            setValueElement(inputElementPercent, price.increasePercent);
         }
     }
 
@@ -189,16 +195,18 @@ class stockInfo {
 
         if (isset(_this.minIntradayPriceElement)) {
             var inputElement = _this.minIntradayPriceElement;
-            inputElement.setAttribute("value", price.value);
+            // inputElement.setAttribute("value", price.value);
+            setValueElement(inputElement, price.value);
         }
 
         if (isset(_this.minIntradayPricePercentElement)) {
             var inputElementPercent = _this.minIntradayPricePercentElement;
-            inputElementPercent.innerText = price.increasePercent + "%";
-            inputElementPercent.setAttribute(
-                "data-value",
-                price.increasePercent
-            );
+            // inputElementPercent.innerText = price.increasePercent + "%";
+            // inputElementPercent.setAttribute(
+            //     "data-value",
+            //     price.increasePercent
+            // );
+            setValueElement(inputElementPercent, price.increasePercent);
         }
     }
 
@@ -214,16 +222,18 @@ class stockInfo {
 
         if (isset(_this.openIntradayPriceElement)) {
             var inputElement = _this.openIntradayPriceElement;
-            inputElement.setAttribute("value", price.value);
+            // inputElement.setAttribute("value", price.value);
+            setValueElement(inputElement, price.value);
         }
 
         if (isset(_this.openIntradayPricePercentElement)) {
             var inputElementPercent = _this.openIntradayPricePercentElement;
-            inputElementPercent.innerText = price.increasePercent + "%";
-            inputElementPercent.setAttribute(
-                "data-value",
-                price.increasePercent
-            );
+            // inputElementPercent.innerText = price.increasePercent + "%";
+            // inputElementPercent.setAttribute(
+            //     "data-value",
+            //     price.increasePercent
+            // );
+            setValueElement(inputElementPercent, price.increasePercent);
         }
     }
 
@@ -258,22 +268,21 @@ class stockInfo {
         if (isset(_this.roofIntradayPriceElement)) {
             var inputElement = _this.roofIntradayPriceElement;
             // inputElement.innerText = _this.roofPrice;
-            inputElement.setAttribute("value", _this.roofPrice);
+            // inputElement.setAttribute("value", _this.roofPrice);
+            setValueElement(inputElement, _this.roofPrice);
         }
 
-        // console.log(
-        //     "_this.floorIntradayPriceElement: ",
-        //     _this.floorIntradayPriceElement
-        // );
         if (isset(_this.floorIntradayPriceElement)) {
             var inputElement = _this.floorIntradayPriceElement;
             // inputElement.innerText = _this.floorPrice;
-            inputElement.setAttribute("value", _this.floorPrice);
+            // inputElement.setAttribute("value", _this.floorPrice);
+            setValueElement(inputElement, _this.floorPrice);
         }
 
         if (isset(_this.referenceIntradayPriceElement)) {
             var inputElement = _this.referenceIntradayPriceElement;
-            inputElement.setAttribute("value", price);
+            // inputElement.setAttribute("value", price);
+            setValueElement(inputElement, price);
         }
     }
 
@@ -287,12 +296,14 @@ class stockInfo {
         }
 
         this._intradayQuotes.getIntradayQuotes(function(data) {
-            _this.currentPrice = _this._intradayQuotes.latestPrice;
-            _this.maxPrice = _this._intradayQuotes.maxPrice;
-            _this.minPrice = _this._intradayQuotes.minPrice;
-            _this.openPrice = _this._intradayQuotes.firstPrice;
-            _this.referencePrice = _this._intradayQuotes.referencePrice;
-            _this.distinctPrice = _this._intradayQuotes.arrayDistinctPrice;
+            if (data && _this._intradayQuotes) {
+                _this.currentPrice = _this._intradayQuotes.latestPrice;
+                _this.maxPrice = _this._intradayQuotes.maxPrice;
+                _this.minPrice = _this._intradayQuotes.minPrice;
+                _this.openPrice = _this._intradayQuotes.firstPrice;
+                _this.referencePrice = _this._intradayQuotes.referencePrice;
+                _this.distinctPrice = _this._intradayQuotes.arrayDistinctPrice;
+            }
         }, 1);
         return this._intradayQuotes;
     }
@@ -311,8 +322,11 @@ class stockInfo {
     }
 
     searchStock(stockCode) {
+        var interval = 5000;
         this.stockCode = stockCode.toUpperCase();
+        // setInterval(() => {
         this.intradayQuotes;
+        // }, interval);
         this.historicalQuotes;
     }
 

@@ -103,15 +103,22 @@ function roundPercent(number, round = 3) {
 }
 
 function setValueElement(element, value) {
-    var typeElement = typeof element;
+    var typeElement = element.tagName.toLowerCase();
 
     switch (typeElement) {
         case "input":
             element.setAttribute("value", value);
-        // break;
+            break;
         case "span":
             element.setAttribute("data-value", value);
-        // break;
+            element.innerText = value;
+            break;
+
+        case "td":
+            element.setAttribute("data-value", value);
+            element.innerText = value;
+            break;
+
         default:
             element.innerText = value;
             break;

@@ -210,39 +210,41 @@ class intraDay {
 
         var getData = new getDataURL(_this.url);
 
-        getData.makeCorsRequest(function(data) {
-            _this.intradayQuotes = data;
-            // console.log("_this.targetAppend: ", _this.targetAppend);
+        setInterval(function() {
+            getData.makeCorsRequest(function(data) {
+                _this.intradayQuotes = data;
+                // console.log("_this.targetAppend: ", _this.targetAppend);
 
-            if (
-                appendTable &&
-                isset(_this.targetAppend) &&
-                _this.targetAppend
-            ) {
-                var table = loadIntradayQuotes(
-                    _this.intradayQuotes,
-                    _this.filterColumn,
-                    _this.log,
-                    dateToLocaleTimeString
-                );
-                // Append table
-                var targetAppend = _this.targetAppend;
+                if (
+                    appendTable &&
+                    isset(_this.targetAppend) &&
+                    _this.targetAppend
+                ) {
+                    var table = loadIntradayQuotes(
+                        _this.intradayQuotes,
+                        _this.filterColumn,
+                        _this.log,
+                        dateToLocaleTimeString
+                    );
+                    // Append table
+                    var targetAppend = _this.targetAppend;
 
-                targetAppend.innerHTML = "";
-                targetAppend.appendChild(table);
-            }
-            // // Append chart
-            // var targetChart = _this.targetChart;
+                    targetAppend.innerHTML = "";
+                    targetAppend.appendChild(table);
+                }
+                // // Append chart
+                // var targetChart = _this.targetChart;
 
-            // // targetAppend.innerHTML = "";
-            // var charDataSliced = _this.intradayQuotes.reverse();
-            // var chartData = getCol(charDataSliced, "Price");
-            // var chartLabel = getCol(charDataSliced, "Date");
-            // var chart = new ChartDrawing(targetChart, chartLabel, chartData);
+                // // targetAppend.innerHTML = "";
+                // var charDataSliced = _this.intradayQuotes.reverse();
+                // var chartData = getCol(charDataSliced, "Price");
+                // var chartLabel = getCol(charDataSliced, "Date");
+                // var chart = new ChartDrawing(targetChart, chartLabel, chartData);
 
-            // callBack
-            callback(data);
-        });
+                // callBack
+                callback(data);
+            });
+        }, 1000);
         return true;
     }
 }

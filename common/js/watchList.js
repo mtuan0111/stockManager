@@ -74,11 +74,17 @@ class watchList {
             var tableRow = document.createElement("tr");
 
             var colStockCode = document.createElement("td");
+            colStockCode.className = "center-align";
             var colCurrentPrice = document.createElement("td");
+            colCurrentPrice.className = "center-align";
             var colMaxPrice = document.createElement("td");
+            colMaxPrice.className = "center-align";
             var colMinPrice = document.createElement("td");
+            colMinPrice.className = "center-align";
             var colOpenPrice = document.createElement("td");
+            colOpenPrice.className = "center-align";
             var colReferencePrice = document.createElement("td");
+            colReferencePrice.className = "center-align";
 
             var stockObject = new stockInfo({
                 stockCode: stockCode,
@@ -126,7 +132,7 @@ class watchList {
         // console.log("this._tableListStock: ", this._tableListStock);
         // this._tableListStock.appendChild(tableRow);
 
-        console.log("this.targetAppend: ", this.targetAppend);
+        // console.log("this.targetAppend: ", this.targetAppend);
         this.targetAppend.innerHTML = "";
         this.targetAppend.appendChild(this._tableListStock);
     }

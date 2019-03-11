@@ -4,7 +4,6 @@ class userBehavior {
         // _this.createSearchEvent();
 
         _this.searchingStock = "ACB";
-        // console.log("this._searchingStock: ", this._searchingStock);
     }
 
     set searchingStock(stockCode) {
