@@ -22,7 +22,51 @@ $(document).ready(function() {
     }, 200);
 
     setTimeout(function() {
-        var listStockCode = ["HAG", "HNG", "FLC", "ACB", "HUT"];
+        var listStockCode = [
+            "HAG",
+            "HAG",
+            "NLG",
+            "NLG",
+            "TTF",
+            "TTF",
+            "HKB",
+            "HKB",
+            "FLC",
+            "FLC",
+            "ACB",
+            "ACB",
+            "VIC",
+            "VIC",
+            "DXG",
+            "DXG",
+            "HNG",
+            "HNG",
+            "PET",
+            "PET",
+            "VHM",
+            "VHM",
+            "VGC",
+            "VGC",
+            "DHG",
+            "DHG",
+            "KDC",
+            "KDC",
+            "NHA",
+            "NHA",
+            "HUT",
+            "HUT",
+            "PHR",
+            "PHR",
+            "SHB",
+            "SHB",
+            "BID",
+            "BID",
+            "HBC",
+            "HBC"
+        ];
+
+        listStockCode = removeDups(listStockCode);
+
         var userWatchList = new watchList({
             listStockCode: listStockCode,
             targetAppend: document.getElementById("watchList")

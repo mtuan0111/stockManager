@@ -89,8 +89,10 @@ class stockInfo {
     }
 
     set stockCode(stockCode) {
-        this._stockCode = stockCode;
-        this.stockCodeInput = stockCode;
+        if (this._stockCode != stockCode) {
+            this._stockCode = stockCode;
+            this.stockCodeInput = stockCode;
+        }
     }
 
     get stockCode() {
@@ -99,7 +101,9 @@ class stockInfo {
     }
 
     set stockBoughtPrice(Price) {
-        this._stockBoughtPrice = Price;
+        if (this._stockBoughtPrice != Price) {
+            this._stockBoughtPrice = Price;
+        }
     }
 
     get stockBoughtPrice() {
@@ -108,7 +112,9 @@ class stockInfo {
     }
 
     set stockCodeInputElement(el) {
-        this._stockCodeInputElement = el;
+        if (this._stockCodeInputElement != el) {
+            this._stockCodeInputElement = el;
+        }
     }
 
     get stockCodeInputElement() {

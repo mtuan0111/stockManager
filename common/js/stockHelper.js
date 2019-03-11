@@ -107,20 +107,42 @@ function setValueElement(element, value) {
 
     switch (typeElement) {
         case "input":
-            element.setAttribute("value", value);
+            if (element.getAttribute("value") != value) {
+                element.setAttribute("value", value);
+            }
             break;
         case "span":
-            element.setAttribute("data-value", value);
-            element.innerText = value;
+            if (element.getAttribute("data-value") != value) {
+                element.setAttribute("data-value", value);
+            }
+            if (element.innerText != value) {
+                element.innerText = value;
+            }
             break;
 
         case "td":
-            element.setAttribute("data-value", value);
-            element.innerText = value;
+            if (element.getAttribute("data-value") != value) {
+                element.setAttribute("data-value", value);
+            }
+            if (element.innerText != value) {
+                element.innerText = value;
+            }
             break;
 
         default:
-            element.innerText = value;
+            if (element.innerText != value) {
+                element.innerText = value;
+            }
             break;
     }
+}
+
+function removeDups(names) {
+    let unique = {};
+    names.forEach(function(i) {
+        if (!unique[i]) {
+            unique[i] = true;
+        }
+    });
+    return Object.keys(unique);
 }
