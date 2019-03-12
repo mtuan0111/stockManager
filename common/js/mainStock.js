@@ -1,4 +1,5 @@
 jsFilesImport = [
+    "constant.js",
     "stockHelper.js",
     "getDataURL.js",
     "extention.js",

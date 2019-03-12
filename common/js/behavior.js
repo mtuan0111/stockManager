@@ -35,7 +35,8 @@ class userBehavior {
                 historicalQuotesTableElement: _this.historicalQuotesTable
             });
         } else {
-            this._searchingStock.searchStock(stockCode);
+            this._searchingStock.stockCode = stockCode;
+            // this._searchingStock.searchStock(stockCode);
         }
     }
 

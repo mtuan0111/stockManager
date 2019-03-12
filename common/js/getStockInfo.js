@@ -92,6 +92,7 @@ class stockInfo {
         if (this._stockCode != stockCode) {
             this._stockCode = stockCode;
             this.stockCodeInput = stockCode;
+            // console.log("stockCode: ", stockCode);
         }
     }
 
@@ -302,6 +303,7 @@ class stockInfo {
         }
 
         this._intradayQuotes.getIntradayQuotes(function(data) {
+            console.log("_this. this h", _this);
             if (data && _this._intradayQuotes) {
                 _this.currentPrice = _this._intradayQuotes.latestPrice;
                 _this.maxPrice = _this._intradayQuotes.maxPrice;
@@ -328,7 +330,6 @@ class stockInfo {
     }
 
     searchStock(stockCode) {
-        var interval = 5000;
         this.stockCode = stockCode.toUpperCase();
         // setInterval(() => {
         this.intradayQuotes;

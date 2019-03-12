@@ -205,15 +205,20 @@ class intraDay {
         return document.getElementById("IntradayChart");
     }
 
-    getIntradayQuotes(callback, appendTable = 0) {
+    getIntradayQuotes(callback, appendTable = 0, stockCode2 = this.stockCode) {
         var _this = this;
-
-        var getData = new getDataURL(_this.url);
-
-        setInterval(function() {
+        setInterval(function(stockCode33 = stockCode2) {
+            // _this = this;
+            // console.log("stock", stock);
+            // console.log("_this.url: ", _this.url);
+            // console.log("this: ", _this);
+            // var url =
+            //     "https://www.fireant.vn/api/Data/Markets/IntradayQuotes?symbol=" +
+            //     stockCode;
+            // console.log("stockCode: ", stockCode33);
+            var getData = new getDataURL(_this.url);
             getData.makeCorsRequest(function(data) {
                 _this.intradayQuotes = data;
-                // console.log("_this.targetAppend: ", _this.targetAppend);
 
                 if (
                     appendTable &&
@@ -221,7 +226,7 @@ class intraDay {
                     _this.targetAppend
                 ) {
                     var table = loadIntradayQuotes(
-                        _this.intradayQuotes,
+                        _this.intradayQuotes.slice(0).reverse(),
                         _this.filterColumn,
                         _this.log,
                         dateToLocaleTimeString
@@ -244,7 +249,7 @@ class intraDay {
                 // callBack
                 callback(data);
             });
-        }, 1000);
+        }, TIME_REFRESH_DATA);
         return true;
     }
 }

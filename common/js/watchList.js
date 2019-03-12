@@ -75,6 +75,7 @@ class watchList {
 
             var colStockCode = document.createElement("td");
             colStockCode.className = "center-align";
+
             var colCurrentPrice = document.createElement("td");
             colCurrentPrice.className = "center-align";
             var colMaxPrice = document.createElement("td");
@@ -83,24 +84,49 @@ class watchList {
             colMinPrice.className = "center-align";
             var colOpenPrice = document.createElement("td");
             colOpenPrice.className = "center-align";
+
             var colReferencePrice = document.createElement("td");
             colReferencePrice.className = "center-align";
+
+            var currentPriceElement = document.createElement("span");
+            var currentPricePercentElement = document.createElement("span");
+            addClass(currentPricePercentElement, "badge currentPricePercent");
+            colCurrentPrice.appendChild(currentPriceElement);
+            colCurrentPrice.appendChild(currentPricePercentElement);
+
+            var maxPriceElement = document.createElement("span");
+            var maxPricePercentElement = document.createElement("span");
+            addClass(maxPricePercentElement, "badge maxPricePercent");
+            colMaxPrice.appendChild(maxPriceElement);
+            colMaxPrice.appendChild(maxPricePercentElement);
+
+            var minPriceElement = document.createElement("span");
+            var minPricePercentElement = document.createElement("span");
+            addClass(minPricePercentElement, "badge minPricePercent");
+            colMinPrice.appendChild(minPriceElement);
+            colMinPrice.appendChild(minPricePercentElement);
+
+            var openPriceElement = document.createElement("span");
+            var openPricePercentElement = document.createElement("span");
+            addClass(openPricePercentElement, "badge openPricePercent");
+            colOpenPrice.appendChild(openPriceElement);
+            colOpenPrice.appendChild(openPricePercentElement);
 
             var stockObject = new stockInfo({
                 stockCode: stockCode,
                 stockCodeInputElement: colStockCode,
 
-                currentIntradayPriceElement: colCurrentPrice,
-                // currentIntradayPricePercentElement: _this.currentIntradayPricePercent,
+                currentIntradayPriceElement: currentPriceElement,
+                currentIntradayPricePercentElement: currentPricePercentElement,
 
-                maxIntradayPriceElement: colMaxPrice,
-                // maxIntradayPricePercentElement: _this.maxIntradayPricePercent,
+                maxIntradayPriceElement: maxPriceElement,
+                maxIntradayPricePercentElement: maxPricePercentElement,
 
-                minIntradayPriceElement: colMinPrice,
-                // minIntradayPricePercentElement: _this.minIntradayPricePercent,
+                minIntradayPriceElement: minPriceElement,
+                minIntradayPricePercentElement: minPricePercentElement,
 
-                openIntradayPriceElement: colOpenPrice,
-                // openIntradayPricePercentElement: _this.openIntradayPricePercent,
+                openIntradayPriceElement: openPriceElement,
+                openIntradayPricePercentElement: openPricePercentElement,
 
                 // roofIntradayPriceElement: _this.roofIntradayPrice,
                 // floorIntradayPriceElement: _this.floorIntradayPrice,

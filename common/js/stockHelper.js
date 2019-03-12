@@ -104,36 +104,56 @@ function roundPercent(number, round = 3) {
 
 function setValueElement(element, value) {
     var typeElement = element.tagName.toLowerCase();
-
+    var changed = false;
+    var decrease = false;
     switch (typeElement) {
         case "input":
             if (element.getAttribute("value") != value) {
                 element.setAttribute("value", value);
+                changed = true;
+                decrease = element.getAttribute("value") < value;
             }
             break;
         case "span":
             if (element.getAttribute("data-value") != value) {
                 element.setAttribute("data-value", value);
+                changed = true;
+                decrease = element.getAttribute("data-value") < value;
             }
             if (element.innerText != value) {
                 element.innerText = value;
+                changed = true;
+                decrease = element.innerText < value;
             }
             break;
 
         case "td":
             if (element.getAttribute("data-value") != value) {
                 element.setAttribute("data-value", value);
+                changed = true;
+                decrease = element.getAttribute("data-value") < value;
             }
             if (element.innerText != value) {
                 element.innerText = value;
+                changed = true;
+                decrease = element.innerText < value;
             }
             break;
 
         default:
             if (element.innerText != value) {
                 element.innerText = value;
+                changed = true;
+                decrease = element.innerText < value;
             }
             break;
+    }
+
+    if (changed) {
+        addClass(element, "changed");
+        setTimeout(function() {
+            removeClass(element, "changed");
+        }, TIME_CHANGED_STATUS);
     }
 }
 
@@ -145,4 +165,28 @@ function removeDups(names) {
         }
     });
     return Object.keys(unique);
+}
+
+function addClass(element, className) {
+    arr = "";
+    if (isset(element.className)) {
+        arr = element.className.split(" ");
+    }
+
+    if (arr.indexOf(className) == -1) {
+        element.className += " " + className;
+    }
+}
+
+function removeClass(element, className) {
+    arr = "";
+    indexClass = -1;
+    if (isset(element.className)) {
+        arr = element.className.split(" ");
+        indexClass = arr.indexOf(className);
+    }
+    if (indexClass != -1) {
+        arr.splice(indexClass, 1);
+        element.className = arr.join(" ");
+    }
 }
