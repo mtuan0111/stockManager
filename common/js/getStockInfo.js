@@ -295,15 +295,22 @@ class stockInfo {
 
     get intradayQuotes() {
         var _this = this;
-        this._intradayQuotes = new intraDay(_this.stockCode);
+        if (!isset(this._intradayQuotes)) {
+            this._intradayQuotes = new intraDay(_this.stockCode);
+        } else {
+            this._intradayQuotes.stockCode = _this.stockCode;
+        }
 
         if (isset(_this.intraDayQuotesTableElement)) {
             this._intradayQuotes.targetAppend =
                 _this.intraDayQuotesTableElement;
         }
-
+        // console.log("this._intradayQuotes: ", this._intradayQuotes);
+        // if (isset(this._intradayQuotes.intervalLoop)) {
+        //     clearInterval(this._intradayQuotes.intervalLoop);
+        // }
         this._intradayQuotes.getIntradayQuotes(function(data) {
-            console.log("_this. this h", _this);
+            // console.log("_this. this h", _this);
             if (data && _this._intradayQuotes) {
                 _this.currentPrice = _this._intradayQuotes.latestPrice;
                 _this.maxPrice = _this._intradayQuotes.maxPrice;
@@ -318,14 +325,19 @@ class stockInfo {
 
     get historicalQuotes() {
         var _this = this;
-        this._historicalQuotes = new historicalQuotes(this.stockCode);
+        if (!isset(_this._historicalQuotes)) {
+            _this._historicalQuotes = new historicalQuotes(_this.stockCode);
+        } else {
+            console.log("Update historical: ", _this.stockCode);
+            _this._historicalQuotes.stockCode = _this.stockCode;
+        }
 
         if (isset(_this.historicalQuotesTableElement)) {
-            this._historicalQuotes.targetAppend =
+            _this._historicalQuotes.targetAppend =
                 _this.historicalQuotesTableElement;
         }
 
-        this._historicalQuotes.getHistoricalQuotes(function(data) {}, 1);
+        _this._historicalQuotes.getHistoricalQuotes(function(data) {}, 1);
         return true;
     }
 

@@ -2,12 +2,13 @@ class intraDay {
     constructor(stockCode) {
         var _this = this;
         _this.stockCode = stockCode;
-        _this.referencePrice;
     }
 
     set stockCode(code) {
         var _this = this;
         _this._stockCode = code;
+        delete this._referencePrice;
+        this.referencePrice;
     }
 
     get stockCode() {
@@ -44,15 +45,7 @@ class intraDay {
         if (isset(_this._filterColumn)) {
             return _this._filterColumn;
         }
-        return [
-            // "ID",
-            // "Symbol",
-            "Date",
-            "Price",
-            "Volume",
-            // "TotalVolume",
-            "Side"
-        ];
+        return ["Date", "Price", "Volume", "Side"];
     }
 
     set intradayQuotes(array) {
@@ -151,9 +144,6 @@ class intraDay {
             beginDate.setDate(beginDate.getDate() - 5);
             refSelectHistoricalPrice.beginDateString = beginDate;
             refSelectHistoricalPrice.getHistoricalQuotes(function() {
-                // var lenghtHistoricalQuotes =
-                //     refSelectHistoricalPrice.historicalQuotes.length;
-
                 _this._referencePrice =
                     refSelectHistoricalPrice.historicalQuotes[1]["Close"];
             });
@@ -175,8 +165,6 @@ class intraDay {
         }
 
         return data;
-        // data.forEach(element => {});
-        // return Array.from(new Set(data.map(s => s.Price)));
     }
 
     set targetAppend(element) {
@@ -187,10 +175,7 @@ class intraDay {
         if (isset(this._targetAppend)) {
             return this._targetAppend;
         }
-
-        // throw new Error("You are not select the table element yet!");
         return null;
-        // return document.getElementById("containerIntradayQuotes");
     }
 
     set targetChart(element) {
@@ -207,15 +192,9 @@ class intraDay {
 
     getIntradayQuotes(callback, appendTable = 0, stockCode2 = this.stockCode) {
         var _this = this;
-        setInterval(function(stockCode33 = stockCode2) {
-            // _this = this;
-            // console.log("stock", stock);
-            // console.log("_this.url: ", _this.url);
-            // console.log("this: ", _this);
-            // var url =
-            //     "https://www.fireant.vn/api/Data/Markets/IntradayQuotes?symbol=" +
-            //     stockCode;
-            // console.log("stockCode: ", stockCode33);
+
+        clearInterval(this.intervalLoop);
+        this.intervalLoop = setInterval(function() {
             var getData = new getDataURL(_this.url);
             getData.makeCorsRequest(function(data) {
                 _this.intradayQuotes = data;
@@ -231,22 +210,13 @@ class intraDay {
                         _this.log,
                         dateToLocaleTimeString
                     );
-                    // Append table
+
                     var targetAppend = _this.targetAppend;
 
                     targetAppend.innerHTML = "";
                     targetAppend.appendChild(table);
                 }
-                // // Append chart
-                // var targetChart = _this.targetChart;
 
-                // // targetAppend.innerHTML = "";
-                // var charDataSliced = _this.intradayQuotes.reverse();
-                // var chartData = getCol(charDataSliced, "Price");
-                // var chartLabel = getCol(charDataSliced, "Date");
-                // var chart = new ChartDrawing(targetChart, chartLabel, chartData);
-
-                // callBack
                 callback(data);
             });
         }, TIME_REFRESH_DATA);
