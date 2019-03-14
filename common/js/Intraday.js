@@ -147,6 +147,9 @@ class intraDay {
                 _this._referencePrice =
                     refSelectHistoricalPrice.historicalQuotes[1]["Close"];
             });
+            if (_this._referencePrice) {
+                return _this.referencePrice;
+            }
             return _this._referencePrice;
         }
     }
@@ -190,7 +193,7 @@ class intraDay {
         return document.getElementById("IntradayChart");
     }
 
-    getIntradayQuotes(callback, appendTable = 0, stockCode2 = this.stockCode) {
+    getIntradayQuotes(callback, appendTable = 0) {
         var _this = this;
 
         clearInterval(this.intervalLoop);
@@ -216,7 +219,16 @@ class intraDay {
                     targetAppend.innerHTML = "";
                     targetAppend.appendChild(table);
                 }
+                // // Append chart
+                // var targetChart = _this.targetChart;
 
+                // // targetAppend.innerHTML = "";
+                // var charDataSliced = _this.intradayQuotes.reverse();
+                // var chartData = getCol(charDataSliced, "Price");
+                // var chartLabel = getCol(charDataSliced, "Date");
+                // var chart = new ChartDrawing(targetChart, chartLabel, chartData);
+
+                // callBack
                 callback(data);
             });
         }, TIME_REFRESH_DATA);

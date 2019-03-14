@@ -8152,6 +8152,16 @@ table tbody tr:before {
 }
 [class$=PricePercent]:after {
   content: "%";
+  font-size: 80%;
+}
+
+#stockCode {
+  text-transform: uppercase;
+}
+
+#containerHistoricalQuotes, #containerIntradayQuotes {
+  max-height: 100vh;
+  overflow: auto;
 }
 
 /*# sourceMappingURL=main.css.map */

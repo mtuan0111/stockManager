@@ -1,0 +1,3 @@
+class stockList {
+    constructor() {}
+}

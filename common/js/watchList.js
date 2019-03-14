@@ -1,5 +1,6 @@
-class watchList {
+class watchList extends stockList {
     constructor({ listStockCode, targetAppend }) {
+        super();
         this.targetAppend = targetAppend;
         this.listStockCode = listStockCode;
         this.listStock = listStockCode;
@@ -56,6 +57,10 @@ class watchList {
         this._listStock = [];
         this._tableListStock = document.createElement("table");
 
+        var caption = document.createElement("caption");
+        caption.innerText = "User's watch list";
+        this._tableListStock.appendChild(caption);
+
         var theadTable = document.createElement("thead");
         var tbodyTable = document.createElement("tbody");
 
@@ -88,6 +93,12 @@ class watchList {
             var colReferencePrice = document.createElement("td");
             colReferencePrice.className = "center-align";
 
+            var stockCodeElement = document.createElement("span");
+            var stockCodePercentElement = document.createElement("span");
+            addClass(stockCodePercentElement, "badge stockCodePercent");
+            colStockCode.appendChild(stockCodeElement);
+            colStockCode.appendChild(stockCodePercentElement);
+
             var currentPriceElement = document.createElement("span");
             var currentPricePercentElement = document.createElement("span");
             addClass(currentPricePercentElement, "badge currentPricePercent");
@@ -112,9 +123,18 @@ class watchList {
             colOpenPrice.appendChild(openPriceElement);
             colOpenPrice.appendChild(openPricePercentElement);
 
+            var referencePriceElement = document.createElement("span");
+            var referencePricePercentElement = document.createElement("span");
+            addClass(
+                referencePricePercentElement,
+                "badge referencePricePercent"
+            );
+            colReferencePrice.appendChild(referencePriceElement);
+            // colReferencePrice.appendChild(referencePricePercentElement);
+
             var stockObject = new stockInfo({
                 stockCode: stockCode,
-                stockCodeInputElement: colStockCode,
+                stockCodeInputElement: stockCodeElement,
 
                 currentIntradayPriceElement: currentPriceElement,
                 currentIntradayPricePercentElement: currentPricePercentElement,
@@ -131,7 +151,7 @@ class watchList {
                 // roofIntradayPriceElement: _this.roofIntradayPrice,
                 // floorIntradayPriceElement: _this.floorIntradayPrice,
 
-                referenceIntradayPriceElement: colReferencePrice
+                referenceIntradayPriceElement: referencePriceElement
 
                 // intraDayQuotesTableElement: _this.intraDayQuotesTable,
                 // historicalQuotesTableElement: _this.historicalQuotesTable
@@ -161,11 +181,5 @@ class watchList {
         // console.log("this.targetAppend: ", this.targetAppend);
         this.targetAppend.innerHTML = "";
         this.targetAppend.appendChild(this._tableListStock);
-    }
-
-    get tableListStock() {
-        var _this = this;
-        return this._tableListStock;
-        // var listData = _this.
     }
 }

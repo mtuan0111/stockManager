@@ -106,6 +106,7 @@ function setValueElement(element, value) {
     var typeElement = element.tagName.toLowerCase();
     var changed = false;
     var decrease = false;
+
     switch (typeElement) {
         case "input":
             if (element.getAttribute("value") != value) {

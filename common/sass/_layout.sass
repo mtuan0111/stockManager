@@ -37,9 +37,17 @@
         color: red !important
     &:after
         content: "%"
+        font-size: 80%
 
 .changed
     @extend .grey  
     @extend .lighten-3
 
     // @extend .white-text
+
+#stockCode
+    text-transform: uppercase
+
+#containerHistoricalQuotes, #containerIntradayQuotes
+    max-height: 100vh
+    overflow: auto

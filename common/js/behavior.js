@@ -1,15 +1,12 @@
 class userBehavior {
     constructor() {
         var _this = this;
-        // _this.createSearchEvent();
-
         _this.searchingStock = "ACB";
     }
 
     set searchingStock(stockCode) {
         var _this = this;
         if (!isset(this._searchingStock)) {
-            console.log("Create new stock");
             this._searchingStock = new stockInfo({
                 stockCode: stockCode,
                 stockCodeInputElement: _this.inputStockCode,
@@ -36,8 +33,6 @@ class userBehavior {
                 historicalQuotesTableElement: _this.historicalQuotesTable
             });
         } else {
-            // this._searchingStock.stockCode = stockCode;
-            console.log("update searching stock");
             this._searchingStock.searchStock(stockCode);
         }
     }

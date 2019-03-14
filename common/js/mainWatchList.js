@@ -4,6 +4,8 @@ jsFilesImport = [
     "getDataURL.js",
     "extention.js",
     "getStockInfo.js",
+
+    "stockList.js",
     "watchList.js",
     "chartDrawing.js",
     "Intraday.js",
