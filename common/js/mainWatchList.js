@@ -7,7 +7,7 @@ jsFilesImport = [
 
     "stockList.js",
     "watchList.js",
-    "chartDrawing.js",
+    // "chartDrawing.js",
     "Intraday.js",
     "historical.js"
 ];

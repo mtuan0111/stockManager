@@ -4,7 +4,7 @@ jsFilesImport = [
     "getDataURL.js",
     "extention.js",
     "getStockInfo.js",
-    "chartDrawing.js",
+    // "chartDrawing.js",
     "Intraday.js",
     "historical.js"
 ];
