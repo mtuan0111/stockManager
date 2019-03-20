@@ -3,9 +3,9 @@ jsFilesImport = [
     "stockHelper.js",
     "getDataURL.js",
     "extention.js",
-    "getStockInfo.js",
+    "stockInfo.js",
     // "chartDrawing.js",
-    "Intraday.js",
+    "intraDay.js",
     "historical.js"
 ];
 

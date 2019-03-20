@@ -132,7 +132,7 @@ class stockInfo {
 
     set currentPrice(price) {
         var _this = this;
-        _this._currentPrice = price;
+        this._currentPrice = price;
 
         if (isset(_this.currentIntradayPriceElement)) {
             var inputElement = _this.currentIntradayPriceElement;
@@ -148,7 +148,8 @@ class stockInfo {
     get currentPrice() {
         var _this = this;
         if (!isset(_this._currentPrice)) return 0;
-        return _this._currentPrice;
+
+        return this._currentPrice;
     }
 
     set maxPrice(price) {
@@ -251,6 +252,8 @@ class stockInfo {
         }
     }
 
+    getThis() {}
+
     get intradayQuotes() {
         var _this = this;
         if (!isset(this._intradayQuotes)) {
@@ -263,6 +266,7 @@ class stockInfo {
             this._intradayQuotes.targetAppend =
                 _this.intraDayQuotesTableElement;
         }
+
         this._intradayQuotes.getIntradayQuotes(function(data) {
             if (data && _this._intradayQuotes) {
                 _this.currentPrice = _this._intradayQuotes.latestPrice;
@@ -272,8 +276,20 @@ class stockInfo {
                 _this.referencePrice = _this._intradayQuotes.referencePrice;
                 _this.distinctPrice = _this._intradayQuotes.arrayDistinctPrice;
             }
+            // console.log("_this.currentPrice: ", _this.currentPrice);
         }, 1);
         return this._intradayQuotes;
+    }
+
+    updateQuote() {
+        if (this._intradayQuotes) {
+            this.currentPrice = this._intradayQuotes.latestPrice;
+            this.maxPrice = this._intradayQuotes.maxPrice;
+            this.minPrice = this._intradayQuotes.minPrice;
+            this.openPrice = this._intradayQuotes.firstPrice;
+            this.referencePrice = this._intradayQuotes.referencePrice;
+            this.distinctPrice = this._intradayQuotes.arrayDistinctPrice;
+        }
     }
 
     get historicalQuotes() {

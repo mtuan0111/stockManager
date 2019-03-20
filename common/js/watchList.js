@@ -1,6 +1,5 @@
-class watchList extends stockList {
+class watchList {
     constructor({ listStockCode, targetAppend }) {
-        super();
         this.targetAppend = targetAppend;
         this.listStockCode = listStockCode;
         this.listStock = listStockCode;
@@ -130,7 +129,6 @@ class watchList extends stockList {
                 "badge referencePricePercent"
             );
             colReferencePrice.appendChild(referencePriceElement);
-            // colReferencePrice.appendChild(referencePricePercentElement);
 
             var stockObject = new stockInfo({
                 stockCode: stockCode,
@@ -166,7 +164,6 @@ class watchList extends stockList {
             tableRow.appendChild(colOpenPrice);
             tableRow.appendChild(colReferencePrice);
 
-            // console.log("tableRow: ", tableRow);
             tbodyTable.appendChild(tableRow);
 
             this._listStock.push(stockObject);
@@ -175,10 +172,6 @@ class watchList extends stockList {
         this._tableListStock.appendChild(theadTable);
         this._tableListStock.appendChild(tbodyTable);
 
-        // console.log("this._tableListStock: ", this._tableListStock);
-        // this._tableListStock.appendChild(tableRow);
-
-        // console.log("this.targetAppend: ", this.targetAppend);
         this.targetAppend.innerHTML = "";
         this.targetAppend.appendChild(this._tableListStock);
     }
