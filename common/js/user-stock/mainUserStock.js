@@ -26,9 +26,11 @@ $(document).ready(function() {
     }, 200);
 
     setTimeout(function() {
-        var bom = new user("BomNguyen");
+        var bom = new user({ username: "BomNguyen" });
 
-        // console.log(bom.stock.profitValue);
+        // setInterval(function() {
+        //     bom.generateStockList();
+        // }, 500);
         // userWatchList.targetAppend = document.getElementById("watchList");
         // userWatchList.listStock;
         // console.log("userWatchList.listStock: ", userWatchList.listStock);

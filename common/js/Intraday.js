@@ -48,14 +48,14 @@ class intraDay {
         return ["Date", "Price", "Volume", "Side"];
     }
 
-    set intradayQuotes(array) {
-        this._intradayQuotes = array;
+    set intradayQuotesData(array) {
+        this._intradayQuotesData = array;
     }
 
-    get intradayQuotes() {
+    get intradayQuotesData() {
         var _this = this;
-        if (isset(_this._intradayQuotes)) {
-            return _this._intradayQuotes;
+        if (isset(_this._intradayQuotesData)) {
+            return _this._intradayQuotesData;
         }
         return null;
     }
@@ -64,10 +64,12 @@ class intraDay {
         var _this = this;
 
         var column = "Price";
-        var data = _this.intradayQuotes;
+        var data = _this.intradayQuotesData;
 
         var priceResult =
-            _this.intradayQuotes[_this.intradayQuotes.length - 1][column];
+            _this.intradayQuotesData[_this.intradayQuotesData.length - 1][
+                column
+            ];
         var increasePercent = roundPercent(
             comparePercent(_this.referencePrice, priceResult)
         );
@@ -84,8 +86,8 @@ class intraDay {
         var _this = this;
 
         var column = "Price";
-        var data = _this.intradayQuotes;
-        var priceResult = _this.intradayQuotes[0][column];
+        var data = _this.intradayQuotesData;
+        var priceResult = _this.intradayQuotesData[0][column];
 
         var increasePercent = roundPercent(
             comparePercent(_this.referencePrice, priceResult)
@@ -102,7 +104,7 @@ class intraDay {
     get maxPrice() {
         var _this = this;
         var column = "Price";
-        var data = _this.intradayQuotes;
+        var data = _this.intradayQuotesData;
 
         var priceResult = getMaxOfArray(getCol(data, column));
         var increasePercent = roundPercent(
@@ -120,7 +122,7 @@ class intraDay {
     get minPrice() {
         var _this = this;
         var column = "Price";
-        var data = _this.intradayQuotes;
+        var data = _this.intradayQuotesData;
 
         var priceResult = getMinOfArray(getCol(data, column));
         var increasePercent = roundPercent(
@@ -157,7 +159,7 @@ class intraDay {
     get arrayDistinctPrice() {
         var _this = this;
         var column = "Price";
-        var data = getCol(_this.intradayQuotes, "Price");
+        var data = getCol(_this.intradayQuotesData, "Price");
 
         var index = 0;
 
@@ -193,14 +195,20 @@ class intraDay {
         return document.getElementById("IntradayChart");
     }
 
-    getIntradayQuotes(callback, appendTable = 0) {
+    /**
+     *
+     * @param {*} callback
+     * @param {*} appendTable - 0 not binding to table, 1 watching the data to bind table
+     * @param {*} object - passing this variable to update references
+     */
+    getIntradayQuotes(callback, appendTable = 0, object = null) {
         var _this = this;
 
         clearInterval(this.intervalLoop);
         this.intervalLoop = setInterval(function() {
             var getData = new getDataURL(_this.url);
             getData.makeCorsRequest(function(data) {
-                _this.intradayQuotes = data;
+                _this.intradayQuotesData = data;
 
                 if (
                     appendTable &&
@@ -208,28 +216,34 @@ class intraDay {
                     _this.targetAppend
                 ) {
                     var table = loadIntradayQuotes(
-                        _this.intradayQuotes.slice(0).reverse(),
+                        _this.intradayQuotesData.slice(0).reverse(),
                         _this.filterColumn,
                         _this.log,
                         dateToLocaleTimeString
                     );
 
                     var targetAppend = _this.targetAppend;
-
                     targetAppend.innerHTML = "";
                     targetAppend.appendChild(table);
                 }
+
                 // // Append chart
                 // var targetChart = _this.targetChart;
 
                 // // targetAppend.innerHTML = "";
-                // var charDataSliced = _this.intradayQuotes.reverse();
+                // var charDataSliced = _this.intradayQuotesData.reverse();
                 // var chartData = getCol(charDataSliced, "Price");
                 // var chartLabel = getCol(charDataSliced, "Date");
                 // var chart = new ChartDrawing(targetChart, chartLabel, chartData);
 
                 // callBack
-                callback(data);
+
+                if (object) {
+                    let boundCallBack = callback.bind(object);
+                    boundCallBack(data);
+                } else {
+                    callback(data);
+                }
             });
         }, TIME_REFRESH_DATA);
         return true;

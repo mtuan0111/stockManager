@@ -1,22 +1,22 @@
 class stockInfo {
     constructor(
-        stockCode = "ACB",
-        stockCodeInputElement = null,
-        currentIntradayPriceElement = null,
-        currentIntradayPricePercentElement = null,
-        maxIntradayPriceElement = null,
-        maxIntradayPricePercentElement = null,
-        minIntradayPriceElement = null,
-        minIntradayPricePercentElement = null,
-        openIntradayPriceElement = null,
-        openIntradayPricePercentElement = null,
-        roofIntradayPriceElement = null,
-        floorIntradayPriceElement = null,
-        referenceIntradayPriceElement = null,
-        intraDayQuotesTableElement = null,
-        historicalQuotesTableElement = null
+        stock = {}
+        // stockCodeInputElement = null,
+        // currentIntradayPriceElement = null,
+        // currentIntradayPricePercentElement = null,
+        // maxIntradayPriceElement = null,
+        // maxIntradayPricePercentElement = null,
+        // minIntradayPriceElement = null,
+        // minIntradayPricePercentElement = null,
+        // openIntradayPriceElement = null,
+        // openIntradayPricePercentElement = null,
+        // roofIntradayPriceElement = null,
+        // floorIntradayPriceElement = null,
+        // referenceIntradayPriceElement = null,
+        // intraDayQuotesTableElement = null,
+        // historicalQuotesTableElement = null
     ) {
-        var params = stockCode;
+        var params = stock;
 
         if (params.stockCodeInputElement) {
             this.stockCodeInputElement = params.stockCodeInputElement;
@@ -97,15 +97,15 @@ class stockInfo {
         return _this._stockCode;
     }
 
-    set stockBoughtPrice(Price) {
-        if (this._stockBoughtPrice != Price) {
-            this._stockBoughtPrice = Price;
+    set stockboughtValue(Price) {
+        if (this._stockboughtValue != Price) {
+            this._stockboughtValue = Price;
         }
     }
 
-    get stockBoughtPrice() {
+    get stockboughtValue() {
         var _this = this;
-        return _this._stockBoughtPrice;
+        return _this._stockboughtValue;
     }
 
     set stockCodeInputElement(el) {
@@ -252,7 +252,17 @@ class stockInfo {
         }
     }
 
-    getThis() {}
+    get referencePrice() {
+        var _this = this;
+        if (!isset(_this._referencePrice)) {
+            return 0;
+        }
+        return _this._referencePrice;
+    }
+
+    getThis() {
+        return this;
+    }
 
     get intradayQuotes() {
         var _this = this;
@@ -267,29 +277,24 @@ class stockInfo {
                 _this.intraDayQuotesTableElement;
         }
 
-        this._intradayQuotes.getIntradayQuotes(function(data) {
-            if (data && _this._intradayQuotes) {
-                _this.currentPrice = _this._intradayQuotes.latestPrice;
-                _this.maxPrice = _this._intradayQuotes.maxPrice;
-                _this.minPrice = _this._intradayQuotes.minPrice;
-                _this.openPrice = _this._intradayQuotes.firstPrice;
-                _this.referencePrice = _this._intradayQuotes.referencePrice;
-                _this.distinctPrice = _this._intradayQuotes.arrayDistinctPrice;
-            }
-            // console.log("_this.currentPrice: ", _this.currentPrice);
-        }, 1);
-        return this._intradayQuotes;
-    }
+        var getData = this._intradayQuotes.getIntradayQuotes(
+            function(data) {
+                if (data && _this._intradayQuotes) {
+                    this.currentPrice = _this._intradayQuotes.latestPrice;
+                    this.maxPrice = _this._intradayQuotes.maxPrice;
+                    this.minPrice = _this._intradayQuotes.minPrice;
+                    this.openPrice = _this._intradayQuotes.firstPrice;
+                    this.referencePrice = _this._intradayQuotes.referencePrice;
+                    this.distinctPrice =
+                        _this._intradayQuotes.arrayDistinctPrice;
+                }
+            },
+            1,
+            this
+        );
 
-    updateQuote() {
-        if (this._intradayQuotes) {
-            this.currentPrice = this._intradayQuotes.latestPrice;
-            this.maxPrice = this._intradayQuotes.maxPrice;
-            this.minPrice = this._intradayQuotes.minPrice;
-            this.openPrice = this._intradayQuotes.firstPrice;
-            this.referencePrice = this._intradayQuotes.referencePrice;
-            this.distinctPrice = this._intradayQuotes.arrayDistinctPrice;
-        }
+        getData;
+        return this._intradayQuotes;
     }
 
     get historicalQuotes() {
@@ -309,8 +314,8 @@ class stockInfo {
         return true;
     }
 
-    searchStock(stockCode) {
-        this.stockCode = stockCode.toUpperCase();
+    searchStock(code) {
+        this.stockCode = code.toUpperCase();
         this.intradayQuotes;
         this.historicalQuotes;
     }

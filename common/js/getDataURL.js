@@ -67,7 +67,9 @@ class getDataURL {
                 // this.dataURL = null;
                 // window.alertError = alert("Please input the valid stock Code");
                 throw new Error(
-                    "Something went badly wrong!\nPlease input the valid stock Code"
+                    "url: " +
+                        url +
+                        "\nSomething went badly wrong!\nPlease input the valid stock Code"
                 );
                 return;
             }
